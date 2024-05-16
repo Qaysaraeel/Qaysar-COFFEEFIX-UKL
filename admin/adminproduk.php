@@ -17,6 +17,7 @@
             <li><a href="adminuser.php">User</a></li>
             <li><a href="adminproduk.php">Products</a></li>
             <li><a href="admintransaksi.php">transaction</a></li>
+            <li><a href="adminmassage.php">Massage</a></li>
         </ul>
         </div>
     </header>

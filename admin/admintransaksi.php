@@ -17,13 +17,14 @@
             <li><a href="adminuser.php">User</a></li>
             <li><a href="adminproduk.php">Products</a></li>
             <li><a href="admintransaksi.php">transaction</a></li>
+            <li><a href="adminmassage.php">Massage</a></li>
         </ul>
         </div>
     </header>
     <section class="user">
     <h1 class="heading">Data Transaction</h1>
     <br>
-    <a href="admintransaksitambah.php" class="btn">Ayo Beli</a>
+    <a href="../user/index.php" class="btn">Ayo Beli</a>
     <br>
     <br>
     <table border="1" class="table">

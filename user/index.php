@@ -22,7 +22,7 @@
             <li><a href="#contact">Contact</a></li>
         </ul>
         <div class="header-icon">
-            <a href="../admin/admintransaksitambah.php"><i class='bx bx-cart-alt'></i></a>
+            <a href="belimenu.php"><i class='bx bx-cart-alt'></i></a>
             <a href="#"><i class='bx bx-search' id="search-icon"></i></a>
         </div>
         <div class="search-box">
@@ -70,7 +70,7 @@
                 <h3>Americano Coffee</h3>
                 <div class="content">
                     <span>$3.49</span>
-                    <a href="../admin/admintransaksitambah.php">Add to Cart</a>
+                    <a href="belimenu.php">Add to Cart</a>
                 </div>
             </div>
             <div class="box">
@@ -78,7 +78,7 @@
                 <h3>Americano Coffee</h3>
                 <div class="content">
                     <span>$3.49</span>
-                    <a href="../admin/admintransaksitambah.php">Add to Cart</a>
+                    <a href="belimenu.php">Add to Cart</a>
                 </div>
             </div>
             <div class="box">
@@ -86,7 +86,7 @@
                 <h3>Americano Coffee</h3>
                 <div class="content">
                     <span>$3.49</span>
-                    <a href="../admin/admintransaksitambah.php">Add to Cart</a>
+                    <a href="belimenu.php">Add to Cart</a>
                 </div>
             </div>
             <div class="box">
@@ -94,7 +94,7 @@
                 <h3>Americano Coffee</h3>
                 <div class="content">
                     <span>$3.49</span>
-                    <a href="../admin/admintransaksitambah.php">Add to Cart</a>
+                    <a href="belimenu.php">Add to Cart</a>
                 </div>
             </div>
             <div class="box">
@@ -102,7 +102,7 @@
                 <h3>Americano Coffee</h3>
                 <div class="content">
                     <span>$3.49</span>
-                    <a href="../admin/admintransaksitambah.php">Add to Cart</a>
+                    <a href="belimenu.php">Add to Cart</a>
                 </div>
             </div>
         </div>
@@ -182,23 +182,39 @@
                 </div>
             </div>
             <div class="contactForm">
-                <form>
+                <form action="index.php" method="POST">
                     <h2>Send Massage</h2>
                     <div class="inputBox">
-                        <input type="text" name="" required="required">
-                        <span>Full name</span>
+                        <input type="text" name="username" id="username" required="required">
+                        <span>Username</span>
                     </div>
                     <div class="inputBox">
-                        <input type="text" name="" required="required">
+                        <input type="text" name="email" id="email" required="required">
                         <span>Email</span>
                     </div>
                     <div class="inputBox">
-                        <textarea required="required"></textarea>
+                        <textarea name="pesan" id="pesan" required="required"></textarea>
                         <span>Type Your Massage....</span>
                     </div>
                     <div class="inputBox">
-                        <input type="submit" name="" required="required" value="Send">
+                        <input type="submit" name="submit" required="required" value="Send">
                     </div>
+
+                    <?php
+                    if(isset($_POST['submit'])){
+                    $username = $_POST['username'];
+                    $email = $_POST['email'];
+                    $pesan = $_POST['pesan'];
+
+                    include_once("../koneksi.php");
+
+                    $result = mysqli_query($mysqli,
+                    "INSERT INTO kontak(username, email, pesan) VALUES ('$username', '$email', '$pesan')");
+
+                    }
+                    ?>
+
+
                 </form>
             </div>
         </div>

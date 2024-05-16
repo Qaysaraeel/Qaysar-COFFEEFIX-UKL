@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Transaksi</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="styleuptade.css">
+    <link rel="stylesheet" href="../admin/styleuptade.css">
 </head>
 <body>
     <div class="container">
     <header>
         <h1 class="title">Tambah Transaksi Baru</h1>
         <section class="form">
-        <form action="admintransaksitambah.php" method="POST">
+        <form action="belimenu.php" method="POST">
             <div class="form-group">
                 <label for="id_user">Username:</label>
                 <select name="id_user" id="id_user">
@@ -72,7 +72,7 @@
               VALUES ('$id_user', '$id_produk', '$total_transaksi', '$metode_transaksi', '$tanggal_transaksi')";
     
             if (mysqli_query($mysqli, $query)) {
-            header("Location: admintransaksi.php");
+            header("Location: index.php");
             } else {
             echo "Error: " . $query . "<br>" . mysqli_error($mysqli);
             }
