@@ -17,21 +17,20 @@
             <li><a href="adminuser.php">User</a></li>
             <li><a href="adminproduk.php">Products</a></li>
             <li><a href="admintransaksi.php">transaction</a></li>
-            <li><a href="adminmassage.php">Massage</a></li>
+            <li><a href="adminmassage.php">Massange</a></li>
         </ul>
         </div>
     </header>
     <section class="user">
-    <h1 class="heading">Data Massage</h1>
+    <h1 class="heading">Data Massange</h1>
     <br>
-        <a href="adminmassagetambah.php" id="contact" class="btn">Tambah User</a>
+        <a href="../user/index.php" id="contact" class="btn">Form massange</a>
         <br>
         <br>
         <br>
         <table border="1" class="table">
             <tr>
                 <th>Nomer</th>
-                <th>Id_Massage</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Massage</th>
@@ -46,7 +45,6 @@
             ?>
             <tr>
                 <td><?php echo $nomor++; ?></td>
-                <td><?php echo $data['id_pesan']; ?></td>
                 <td><?php echo $data['username']; ?></td>
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['pesan']; ?></td>

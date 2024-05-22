@@ -1,10 +1,39 @@
+<?php
+session_start(); // Mulai sesi
+
+// Periksa apakah pengguna sudah login, jika tidak, arahkan ke halaman login
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+include '../koneksi.php';
+
+// Ambil informasi login pengguna dari sesi atau cookie
+$username = $_SESSION['username'];
+
+// Query untuk mengambil data pengguna berdasarkan username
+$query = "SELECT * FROM user WHERE username = '$username'";
+$result = mysqli_query($mysqli, $query);
+
+// Periksa apakah query berhasil dieksekusi
+if (!$result) {
+    die("Query Error: " . mysqli_error($mysqli));
+}
+
+// Ambil data pengguna dari hasil query
+$userData = mysqli_fetch_assoc($result);
+
+// Tutup koneksi database
+mysqli_close($mysqli);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
@@ -28,7 +57,12 @@
         <div class="search-box">
             <input type="search" name="" id="" placeholder="Search Here...">
         </div>
+        <ul class="navbar">
+            <li><a href="../index.php">Log out</a></li>
+        </ul>
+        
     </header>
+    
     <section class="home" id="home">
         <div class="home-text">
             <h1>Start your day <br> with coffee</h1>
@@ -38,6 +72,12 @@
         <div class="home-img">
             <img src="img/main.png" alt="">
         </div>
+    </section>
+
+    <section class="user-info">
+        <h2>Informasi Pengguna</h2>
+        <p>Username: <?php echo $userData['username']; ?></p>
+        <p>Email: <?php echo $userData['email']; ?></p>
     </section>
 
     <section class="about" id="about">
@@ -52,61 +92,30 @@
     </section>
 
     <section class="products" id="products">
-        <div class="heading">
-            <h2>Our popular products</h2>
-        </div>
-        
-        <div class="products-container">
-            <div class="box">
-                <img src="img/pro1.png" alt="">
-                <h3>Americano Coffee</h3>
-                <div class="content">
-                    <span>$3.49</span>
-                    <a href="admintransaksitambah.php">Add to Cart</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="img/pro2.png" alt="">
-                <h3>Americano Coffee</h3>
-                <div class="content">
-                    <span>$3.49</span>
-                    <a href="belimenu.php">Add to Cart</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="img/pro3.png" alt="">
-                <h3>Americano Coffee</h3>
-                <div class="content">
-                    <span>$3.49</span>
-                    <a href="belimenu.php">Add to Cart</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="img/pro4.png" alt="">
-                <h3>Americano Coffee</h3>
-                <div class="content">
-                    <span>$3.49</span>
-                    <a href="belimenu.php">Add to Cart</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="img/pro5.png" alt="">
-                <h3>Americano Coffee</h3>
-                <div class="content">
-                    <span>$3.49</span>
-                    <a href="belimenu.php">Add to Cart</a>
-                </div>
-            </div>
-            <div class="box">
-                <img src="img/pro6.png" alt="">
-                <h3>Americano Coffee</h3>
-                <div class="content">
-                    <span>$3.49</span>
-                    <a href="belimenu.php">Add to Cart</a>
-                </div>
+    <div class="heading">
+        <h2>Our popular products</h2>
+    </div>
+    <div class="products-container">
+        <?php
+        include '../koneksi.php';
+        $query_mysql = mysqli_query($mysqli, "SELECT * FROM products") or die(mysqli_error($mysqli));
+        $nomor = 1;
+        while($data = mysqli_fetch_array($query_mysql)) { 
+        ?>
+        <div class="box">
+            <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
+            <h3><?php echo $data['nama_produk']; ?></h3>
+            <div class="content">
+                <span>Rp: <?php echo $data['harga_produk']; ?></span>
+                <a href="belimenu.php?id=<?php echo $data['id_produk']; ?>">Add to Cart</a>
             </div>
         </div>
+        <?php } ?>
+    </div>
     </section>
+
+
+
 
     <section class="customers" id="customers">
         <div class="heading">

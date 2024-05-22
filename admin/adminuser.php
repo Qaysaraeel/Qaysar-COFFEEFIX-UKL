@@ -32,6 +32,7 @@
                 <th>Nomer</th>
                 <th>Id_User</th>
                 <th>Username</th>
+                <th>Foto profil</th>
                 <th>Password</th>   
                 <th>Email</th>
                 <th>Level</th>
@@ -48,6 +49,7 @@
                 <td><?php echo $nomor++; ?></td>
                 <td><?php echo $data['id_user']; ?></td>
                 <td><?php echo $data['username']; ?></td>
+                <td><img src="img/<?php echo $data["pp"]; ?>" width="200" title="<?php echo $data['pp']; ?>"></td>
                 <td><?php echo $data['password']; ?></td>
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['level']; ?></td>

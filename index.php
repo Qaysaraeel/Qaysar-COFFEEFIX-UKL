@@ -14,9 +14,7 @@
         <form class="form" action="login.php" method="post">
             <input type="text" name="Username" placeholder="Username">
             <input type="password" name="Password" placeholder="Password">
-            <a href="login.php">
-                <button class="button">Login</button>
-            </a>
+            <a href="login.php?id=<?php echo $data['id_user']; ?>"><button class="button">Login</button></a>
         </form>
         <div class="forgot">
             <a href="register.php">Register</a> <a href="#">Forgot Password</a>

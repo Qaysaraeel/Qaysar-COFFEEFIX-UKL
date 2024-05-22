@@ -45,6 +45,7 @@ header.shadow{
 .logo img{
     width: 120px;
 }
+
 .navbar{
     display: flex;
 }
@@ -81,7 +82,6 @@ header.shadow{
     display: none;
 }
 .search-box {
-    /* Initial positioning */
     transform: translateY(-100%);
     transition: transform 0.3s ease; /* Adding a transition effect */
 
@@ -109,6 +109,15 @@ header.shadow{
 .search-box input::placeholder{
     font-size: 1rem;
     font-weight: 500;
+}
+.user-info{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #8a6f4d;
+}
+.user-info h2,p{
+    color: #fff;
 }
 .home{
     width: 100%;
@@ -159,6 +168,7 @@ header.shadow{
 .about-text p{
     font-size: 0.938rem;
     margin: 0.5rem 0 1.1rem;
+    color: #1b1b1b;
 }
 .heading{
     text-align: center;
@@ -191,7 +201,7 @@ header.shadow{
     object-fit: contain;
     object-position:center;
     padding: 25px;
-    background: #f1f1f1;
+    background: #c2c2c2;
     border-radius: 0.5rem;
 }
 .products-container .box h3{
@@ -239,6 +249,7 @@ header.shadow{
 }
 .customers-container .box p{
     font-size: 0.938rem;
+    color: #1b1b1b;
 }
 .customers-container .box h2{
     font-size: 1.2rem;

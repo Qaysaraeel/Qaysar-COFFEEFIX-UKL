@@ -19,22 +19,21 @@
             <li><a href="admintransaksi.php">transaction</a></li>
             <li><a href="adminmassage.php">Massage</a></li>
         </ul>
-        </div>
     </header>
     <section class="user">
-    <h1 class="heading">Data Products</h1>
-    <br>
+        <h1 class="heading">Data Products</h1>
+        <br>
         <a href="adminproduktambah.php" class="btn">Tambah Produk</a>
-        <br>
-        <br>
+        <br><br>
         <table border="1" class="table">
             <tr>
                 <th>Nomer</th>
                 <th>Id_Products</th>
                 <th>Name Products</th>
                 <th>Price Products</th>
+                <th>Gambar</th>
                 <th>Stock</th>
-                <th>Action</th> <!-- Menambah kolom aksi -->
+                <th>Action</th>
                 <th>Action</th>
             </tr>
             <?php
@@ -48,18 +47,17 @@
                 <td><?php echo $data['id_produk']; ?></td>
                 <td><?php echo $data['nama_produk']; ?></td>
                 <td><?php echo $data['harga_produk']; ?></td>
+                <td><img src="img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>"></td>
                 <td><?php echo $data['stock']; ?></td>
                 <td><a href="adminprodukhapus.php?id=<?php echo $data['id_produk']; ?>" class="btn-hapus">Hapus</a></td>
                 <td><a href="adminprodukuptade.php?id=<?php echo $data['id_produk']; ?>" class="btn-update">Update</a></td>
             </tr>
             <?php } ?>
         </table>
-        <br>
-        <br>
-    <a href="../index.php" class="btn">Log Out</a>
+        <br><br>
+        <a href="../index.php" class="btn">Log Out</a>
     </section>
     
-
     <script src="main.js"></script>
 </body>
 </html>
