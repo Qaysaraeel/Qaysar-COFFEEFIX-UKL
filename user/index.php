@@ -33,7 +33,7 @@ mysqli_close($mysqli);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
@@ -58,11 +58,11 @@ mysqli_close($mysqli);
             <input type="search" name="" id="" placeholder="Search Here...">
         </div>
         <ul class="navbar">
+            <li><a href="profil.php">profil</a></li>
             <li><a href="../index.php">Log out</a></li>
         </ul>
-        
     </header>
-    
+
     <section class="home" id="home">
         <div class="home-text">
             <h1>Start your day <br> with coffee</h1>
@@ -73,13 +73,7 @@ mysqli_close($mysqli);
             <img src="img/main.png" alt="">
         </div>
     </section>
-
-    <section class="user-info">
-        <h2>Informasi Pengguna</h2>
-        <p>Username: <?php echo $userData['username']; ?></p>
-        <p>Email: <?php echo $userData['email']; ?></p>
-    </section>
-
+     
     <section class="about" id="about">
         <div class="about-img">
             <img src="img/about1.jpg" alt="">
@@ -112,6 +106,48 @@ mysqli_close($mysqli);
         </div>
         <?php } ?>
     </div>
+    </section>
+
+    <section class="customers" id="customers">
+    <div class="heading">
+        <h2>Our Customer's Ratings</h2>
+    </div>
+    <div class="customers-container">
+        <?php
+        include '../koneksi.php';
+        $query_mysql = mysqli_query($mysqli, "SELECT * FROM rating") or die(mysqli_error($mysqli));
+        while($data = mysqli_fetch_array($query_mysql)) { 
+        ?>
+        <div class="box">
+            <div class="stars">
+                <?php
+                // Menghitung jumlah bintang yang ditampilkan
+                $rating = $data['rating'];
+                $full_stars = floor($rating); // Bintang penuh
+                $half_star = ceil($rating - $full_stars); // Setengah bintang
+                $empty_stars = 5 - $full_stars - $half_star; // Bintang kosong
+                // Menampilkan bintang penuh
+                for ($i = 0; $i < $full_stars; $i++) {
+                    echo "<i class='bx bxs-star'></i>";
+                }
+                // Menampilkan setengah bintang jika ada
+                if ($half_star) {
+                    echo "<i class='bx bxs-star-half'></i>";
+                }
+                // Menampilkan bintang kosong
+                for ($i = 0; $i < $empty_stars; $i++) {
+                    echo "<i class='bx bx-star'></i>";
+                }
+                ?>
+            </div>
+            <p><?php echo $data['pesan']; ?></p>
+            <h2><?php echo $data['username']; ?></h2>
+            <!-- Mungkin kamu ingin menambahkan foto profil pengguna di sini -->
+        </div>
+        <?php } ?>
+    </div>
+    <br>
+    <a href="../admin/adminratingtambah.php" class="btn">Berikan Ratingmu!</a>
     </section>
 
 
@@ -159,6 +195,8 @@ mysqli_close($mysqli);
                 <img src="img/oke3.jpg" alt="">
             </div>
         </div>
+        <br>
+        <a href="../admin/adminratingtambah.php" class="btn">Berikan Ratingmu!</a>
     </section>
 
     <section class="contact" id="contact">

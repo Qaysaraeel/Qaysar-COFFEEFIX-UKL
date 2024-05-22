@@ -30,6 +30,7 @@ body {
     margin-top: 20px;
 }
 input[type="text"],
+input[type="number"],
 input[type="date"],
 input[type="email"],
 input[type="password"] {

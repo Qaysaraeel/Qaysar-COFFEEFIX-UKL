@@ -45,10 +45,13 @@
 
                 <form action="belimenu.php" method="POST">
                     <input type="hidden" name="id_produk" value="<?php echo $row['id_produk']; ?>">
+                    
                     <div class="form-group">
                         <label for="total_transaksi">Total Transaksi:</label>
-                        <input type="number" id="total_transaksi" name="total_transaksi" placeholder="Tolong tulis sesuai harga produknya" required>
+                        <span id="total_transaksi">Rp <?php echo $row['harga_produk']; ?></span>
+                        <input type="hidden" name="total_transaksi" value="<?php echo $row['harga_produk']; ?>" required>
                     </div>
+
                     <div class="form-group">
                         <label for="metode_transaksi">Metode Transaksi:</label>
                         <select id="metode_transaksi" name="metode_transaksi" required>
@@ -57,6 +60,7 @@
                             <option value="Credit">Credit</option>
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label for="tanggal_transaksi">Tanggal Transaksi:</label>
                         <input type="date" id="tanggal_transaksi" name="tanggal_transaksi" placeholder="yyyy-mm-dd" required>

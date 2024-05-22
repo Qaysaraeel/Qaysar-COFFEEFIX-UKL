@@ -18,6 +18,7 @@
             <li><a href="adminproduk.php">Products</a></li>
             <li><a href="admintransaksi.php">transaction</a></li>
             <li><a href="adminmassage.php">Massage</a></li>
+            <li><a href="adminrating.php">Rating</a></li>
         </ul>
         </div>
     </header>
@@ -49,7 +50,7 @@
                 <td><?php echo $nomor++; ?></td>
                 <td><?php echo $data['id_user']; ?></td>
                 <td><?php echo $data['username']; ?></td>
-                <td><img src="img/<?php echo $data["pp"]; ?>" width="200" title="<?php echo $data['pp']; ?>"></td>
+                <td><img src="../user/img/<?php echo $data["foto_profil"]; ?>" width="50" title="<?php echo $data['foto_profil']; ?>"></td>
                 <td><?php echo $data['password']; ?></td>
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['level']; ?></td>
@@ -64,6 +65,6 @@
     </section>
     
 
-    <script src="../main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

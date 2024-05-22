@@ -18,6 +18,7 @@
             <li><a href="adminproduk.php">Products</a></li>
             <li><a href="admintransaksi.php">transaction</a></li>
             <li><a href="adminmassage.php">Massage</a></li>
+            <li><a href="adminrating.php">Rating</a></li>
         </ul>
     </header>
     <section class="user">
