@@ -22,7 +22,7 @@ section{
     padding: 50px 100px;
 }
 img{
-    width: 100px;
+    width: 100%;
 }
 body{
     color: var(--text-color);
@@ -112,7 +112,6 @@ header.shadow{
     font-size: 1rem;
     font-weight: 500;
 }
-
 .home{
     width: 100%;
     min-height: 100vh;
@@ -126,7 +125,7 @@ header.shadow{
     gap: 1.5rem;
 }
 .home-text h1{
-    font-size: 3.4rem;
+    font-size: 2.4rem;
     color: var(--main-color);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -162,7 +161,6 @@ header.shadow{
 .about-text p{
     font-size: 0.938rem;
     margin: 0.5rem 0 1.1rem;
-    color: #1b1b1b;
 }
 .heading{
     text-align: center;
@@ -370,60 +368,74 @@ header.shadow{
 .container .contactInfo .box .text h3{
     font-weight: 500;
 }
-.contactForm{
-    width: 40%;
-    padding: 40px;
+.contactForm {
     background: #fff;
-    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    max-width: 500px;
+    width: 100%;
 }
-.contactForm h2{
-    font-size: 30px;
+
+.contactForm h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
     color: #333;
-    font-weight: 500;
+    text-align: center;
 }
-.contactForm .inputBox{
+
+.contactForm .inputBox {
     position: relative;
-    width: 100%;
-    margin-top: 10px;
+    margin-bottom: 30px;
 }
-.contactForm .inputBox input, .contactForm .inputBox textarea{
+
+.contactForm .inputBox input,
+.contactForm .inputBox textarea {
     width: 100%;
-    padding: 5px 0;
+    padding: 10px;
     font-size: 16px;
-    margin: 10px 0;
+    color: #333;
     border: none;
     border-bottom: 2px solid #333;
     outline: none;
+    background: transparent;
     resize: none;
 }
-.contactForm .inputBox span{
+
+.contactForm .inputBox span {
     position: absolute;
-    left: 0;
-    padding: 5px 0;
+    left: 10px;
+    padding: 10px;
     font-size: 16px;
-    margin: 10px 0;
-    pointer-events: none;
-    transition: 0.5s;
     color: #666;
+    pointer-events: none;
+    transition: 0.3s;
 }
+
 .contactForm .inputBox input:focus ~ span,
 .contactForm .inputBox input:valid ~ span,
 .contactForm .inputBox textarea:focus ~ span,
-.contactForm .inputBox textarea:valid ~ span{
-    color: #9b0b0b;
-    font-size: 12px;
+.contactForm .inputBox textarea:valid ~ span {
     transform: translateY(-20px);
+    font-size: 12px;
+    color: #8a6f4d;
 }
-.contactForm .inputBox input[type="submit"]{
-    width: 100px;
-    background: var(--main-color);
+
+.contactForm .inputBox input[type="submit"] {
+    background: #bc9667;
     color: #fff;
     border: none;
     cursor: pointer;
+    border-radius: 5px;
     padding: 10px;
     font-size: 18px;
-    border-radius: 20px;
+    transition: 0.3s;
 }
+
+.contactForm .inputBox input[type="submit"]:hover {
+    background: #8a6f4d;
+}
+
 
 @media (max-width:1058px){
     header{
@@ -528,4 +540,23 @@ header.shadow{
         font-size: 0.6rem;
         font-weight: 300;
     }
+}
+.inputfix {
+    margin-bottom: 20px;
+}
+
+.inputfix .label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333; /* Adjust the color as needed */
+}
+
+.inputfix .value {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #555; /* Adjust the color as needed */
 }

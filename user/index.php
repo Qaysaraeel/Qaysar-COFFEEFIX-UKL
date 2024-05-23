@@ -1,30 +1,22 @@
 <?php
-session_start(); // Mulai sesi
-
-// Periksa apakah pengguna sudah login, jika tidak, arahkan ke halaman login
+session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: login.php");
     exit();
 }
 
 include '../koneksi.php';
-
-// Ambil informasi login pengguna dari sesi atau cookie
 $username = $_SESSION['username'];
 
-// Query untuk mengambil data pengguna berdasarkan username
 $query = "SELECT * FROM user WHERE username = '$username'";
 $result = mysqli_query($mysqli, $query);
 
-// Periksa apakah query berhasil dieksekusi
 if (!$result) {
     die("Query Error: " . mysqli_error($mysqli));
 }
 
-// Ambil data pengguna dari hasil query
 $userData = mysqli_fetch_assoc($result);
 
-// Tutup koneksi database
 mysqli_close($mysqli);
 ?>
 <!DOCTYPE html>
@@ -33,7 +25,7 @@ mysqli_close($mysqli);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="index1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
@@ -44,30 +36,29 @@ mysqli_close($mysqli);
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#customers">Customers</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#home">Beranda</a></li>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#products">Produk</a></li>
+            <li><a href="#customers">Ulasan</a></li>
+            <li><a href="#contact">Hubungi Kami</a></li>
         </ul>
         <div class="header-icon">
-            <a href="belimenu.php"><i class='bx bx-cart-alt'></i></a>
             <a href="#"><i class='bx bx-search' id="search-icon"></i></a>
         </div>
         <div class="search-box">
             <input type="search" name="" id="" placeholder="Search Here...">
         </div>
         <ul class="navbar">
+            <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
             <li><a href="profil.php">profil</a></li>
-            <li><a href="../index.php">Log out</a></li>
         </ul>
     </header>
 
     <section class="home" id="home">
         <div class="home-text">
-            <h1>Start your day <br> with coffee</h1>
-            <p>Kickstart your mornings with a cup of coffee. Experience the rich aroma and unmatched flavor as you embark on your day with our carefully selected brews. Whether you prefer a bold espresso or a smooth latte, our collection offers something for every coffee lover. Start your day right with the perfect cup of coffee from our menu.</p>
-            <a href="#products" class="btn">Shop Now</a>
+            <h1>Nikmati Kesempurnaan <br> di Setiap Tegukan</h1>
+            <p>Temukan kenikmatan kopi sejati dengan setiap tegukan. Kami menghadirkan biji kopi pilihan yang diproses dengan penuh dedikasi untuk memberikan pengalaman rasa yang tiada duanya. Setiap cangkir kopi kami adalah cerminan dari kualitas, keahlian, dan cinta pada kopi.</p>
+            <a href="#products" class="btn">Beli Sekarang</a>
         </div>
         <div class="home-img">
             <img src="img/main.png" alt="">
@@ -79,15 +70,15 @@ mysqli_close($mysqli);
             <img src="img/about1.jpg" alt="">
         </div>
         <div class="about-text">
-            <h2>Our History</h2>
-            <p>Platform Coffee Shop started as a school project where founders crafted a digital platform mimicking the coffee shop ambiance. Through an interactive website, they showcased their web skills, while offering coffee aficionados a space to explore blends, brewing methods, and connect with others. Platform Coffee Shop merges tech with coffee culture, providing a distinctive online hub for education and enjoyment.</p>
-            <a href="#" class="btn">Learn More</a>
+            <h2>Tentang Kami</h2>
+            <p>Selamat datang di COFFEE, tempat di mana kecintaan pada kopi bertemu dengan keahlian dalam setiap cangkir. Kami berdedikasi untuk menghadirkan pengalaman kopi yang luar biasa bagi Anda, dari biji kopi pilihan hingga proses penyeduhan yang sempurna.</p><br>
+            <a href="#" class="btn">Pelajari Lebih Lanjut</a>
         </div>
     </section>
 
     <section class="products" id="products">
     <div class="heading">
-        <h2>Our popular products</h2>
+        <h2>PRODUK KAMI</h2>
     </div>
     <div class="products-container">
         <?php
@@ -109,114 +100,73 @@ mysqli_close($mysqli);
     </section>
 
     <section class="customers" id="customers">
-    <div class="heading">
-        <h2>Our Customer's Ratings</h2>
-    </div>
-    <div class="customers-container">
-        <?php
-        include '../koneksi.php';
-        $query_mysql = mysqli_query($mysqli, "SELECT * FROM rating") or die(mysqli_error($mysqli));
-        while($data = mysqli_fetch_array($query_mysql)) { 
-        ?>
-        <div class="box">
-            <div class="stars">
-                <?php
-                // Menghitung jumlah bintang yang ditampilkan
-                $rating = $data['rating'];
-                $full_stars = floor($rating); // Bintang penuh
-                $half_star = ceil($rating - $full_stars); // Setengah bintang
-                $empty_stars = 5 - $full_stars - $half_star; // Bintang kosong
-                // Menampilkan bintang penuh
-                for ($i = 0; $i < $full_stars; $i++) {
-                    echo "<i class='bx bxs-star'></i>";
-                }
-                // Menampilkan setengah bintang jika ada
-                if ($half_star) {
-                    echo "<i class='bx bxs-star-half'></i>";
-                }
-                // Menampilkan bintang kosong
-                for ($i = 0; $i < $empty_stars; $i++) {
-                    echo "<i class='bx bx-star'></i>";
-                }
-                ?>
-            </div>
-            <p><?php echo $data['pesan']; ?></p>
-            <h2><?php echo $data['username']; ?></h2>
-            <!-- Mungkin kamu ingin menambahkan foto profil pengguna di sini -->
-        </div>
-        <?php } ?>
-    </div>
-    <br>
-    <a href="../admin/adminratingtambah.php" class="btn">Berikan Ratingmu!</a>
-    </section>
-
-
-
-
-    <section class="customers" id="customers">
         <div class="heading">
-            <h2>Our Costumer's</h2>
+            <h2>ulasan customer</h2>
         </div>
         <div class="customers-container">
+            <?php
+            include '../koneksi.php';
+            $query = "
+                SELECT rating.*, user.username, user.foto_profil 
+                FROM rating
+                JOIN user ON rating.id_user = user.id_user
+            ";
+            $query_mysql = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+            while($data = mysqli_fetch_array($query_mysql)) { 
+            ?>
             <div class="box">
                 <div class="stars">
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star-half' ></i>
+                    <?php
+                    // Display stars
+                    $rating = $data['rating'];
+                    $full_stars = floor($rating);
+                    $half_star = ceil($rating - $full_stars);
+                    $empty_stars = 5 - $full_stars - $half_star;
+                    
+                    // Full stars
+                    for ($i = 0; $i < $full_stars; $i++) {
+                        echo "<i class='bx bxs-star'></i>";
+                    }
+                    
+                    // Half star
+                    if ($half_star) {
+                        echo "<i class='bx bxs-star-half'></i>";
+                    }
+                    
+                    // Empty stars
+                    for ($i = 0; $i < $empty_stars; $i++) {
+                        echo "<i class='bx bx-star'></i>";
+                    }
+                    ?>
                 </div>
-                <p>Their coffee is fresh and diverse, the atmosphere is cozy, and the service is friendly.</p>
-                <h2>Abigail Caroline</h2>
-                <img src="img/oke1.jpg" alt="">
+                <p><?php echo $data['pesan']; ?></p>
+                <h2><?php echo $data['username']; ?></h2>
+                <img src="../user/img/<?php echo $data['foto_profil']; ?>" width="50" title="<?php echo $data['foto_profil']; ?>">
             </div>
-            <div class="box">
-                <div class="stars">
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                </div>
-                <p>Fantastic coffee spot! Cozy vibe, friendly staff, and delicious coffee. Will be back soon!</p>
-                <h2>Aaron Bromosov</h2>
-                <img src="img/oke2.jpg" alt="">
-            </div>
-            <div class="box">
-                <div class="stars">
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star' ></i>
-                    <i class='bx bxs-star-half' ></i>
-                </div>
-                <p>Great coffee shop! Cozy atmosphere, friendly staff, amazing coffee. Will be back!</p>
-                <h2>Chan Dwyne</h2>
-                <img src="img/oke3.jpg" alt="">
-            </div>
+            <?php } ?>
         </div>
         <br>
-        <a href="../admin/adminratingtambah.php" class="btn">Berikan Ratingmu!</a>
+        <a href="../admin/adminratingtambah.php?id_user=<?php echo $userData['id_user']; ?>" class="btn">Berikan Ratingmu!</a>
     </section>
 
     <section class="contact" id="contact">
         <div class="content">
-            <h2>Contact Us</h2>
-            <p>Reach out with any questions, suggestions, or collaboration inquiries. We're dedicated to serving you. Fill out the contact form or get in touch directly using the contact information on this page. We look forward to hearing from you!</p>
+            <h2>Hubungi Kami</h2>
+            <p>Kami sangat senang mendengar dari Anda! Baik Anda memiliki pertanyaan, umpan balik, atau hanya ingin berbagi pengalaman Anda tentang kopi kami, tim kami siap membantu.</p> <br>
         </div>
         <div class="container">
             <div class="contactInfo">
                 <div class="box">
                     <div class="icon"><i class='bx bxs-map'></i></div>
                     <div class="text">
-                        <h3>Address</h3>
+                        <h3>Alamat</h3>
                         <p>Perum Sunvillage Damarsi<br>Sidoarjo, Jawa Timur, <br>61252</p>
                     </div>
                 </div>
                 <div class="box">
                     <div class="icon"><i class='bx bxs-phone'></i></div>
                     <div class="text">
-                        <h3>Phone</h3>
+                        <h3>No Telp</h3>
                         <p>0881-0366-47856</p>
                     </div>
                 </div>
@@ -230,25 +180,32 @@ mysqli_close($mysqli);
             </div>
             <div class="contactForm">
                 <form action="index.php" method="POST">
-                    <h2>Send Massage</h2>
-                    <div class="inputBox">
-                        <input type="text" name="username" id="username" required="required">
-                        <span>Username</span>
+                    <h2>Kotak pesan</h2>
+
+                    <input type="hidden" name="id_user" value="<?php echo htmlspecialchars($userData['id_user']); ?>">
+
+                    <div class="inputfix">
+                        <span class="label">Username</span>
+                        <span class="value"><?php echo htmlspecialchars($userData['username']); ?></span>
+                        <input type="hidden" name="username" id="username" value="<?php echo htmlspecialchars($userData['username']); ?>">
                     </div>
-                    <div class="inputBox">
-                        <input type="text" name="email" id="email" required="required">
-                        <span>Email</span>
+                    <div class="inputfix">
+                        <span class="label">Email</span>
+                        <span class="value"><?php echo htmlspecialchars($userData['email']); ?></span>
+                        <input type="hidden" name="email" id="email" value="<?php echo htmlspecialchars($userData['email']); ?>">
                     </div>
+                    <br>
                     <div class="inputBox">
                         <textarea name="pesan" id="pesan" required="required"></textarea>
-                        <span>Type Your Massage....</span>
+                        <span>Ketik disini pesanmu...</span>
                     </div>
                     <div class="inputBox">
-                        <input type="submit" name="submit" required="required" value="Send">
+                        <input type="submit" name="submit" required="required" value="Kirim">
                     </div>
 
                     <?php
                     if(isset($_POST['submit'])){
+                    $id_user = $_POST['id_user'];
                     $username = $_POST['username'];
                     $email = $_POST['email'];
                     $pesan = $_POST['pesan'];
@@ -256,7 +213,7 @@ mysqli_close($mysqli);
                     include_once("../koneksi.php");
 
                     $result = mysqli_query($mysqli,
-                    "INSERT INTO kontak(username, email, pesan) VALUES ('$username', '$email', '$pesan')");
+                    "INSERT INTO kontak(id_user,username, email, pesan) VALUES ('$id_user','$username', '$email', '$pesan')");
 
                     }
                     ?>

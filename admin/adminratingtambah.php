@@ -1,10 +1,55 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: login.php");
+    exit();
+}
+
+include '../koneksi.php';
+$username = $_SESSION['username'];
+
+// Fetch user data
+$query = "SELECT * FROM user WHERE username = '$username'";
+$result = mysqli_query($mysqli, $query);
+
+if (!$result) {
+    die("Query Error: " . mysqli_error($mysqli));
+}
+
+$userData = mysqli_fetch_assoc($result);
+$id_user = $userData['id_user'];
+
+// Pastikan koneksi tetap terbuka saat melakukan pengolahan formulir
+include '../koneksi.php';
+
+if(isset($_POST['submit'])){
+    $rating = $_POST['rating'];
+    $id_user = $_POST['id_user'];
+    $username = $_POST['username'];
+    $foto_profil = $_POST['foto_profil'];
+    $pesan = $_POST['pesan'];
+
+    $result = mysqli_query($mysqli,
+    "INSERT INTO rating(rating, id_user, username,foto_profil, pesan) VALUES ('$rating', '$id_user', '$username','$foto_profil', '$pesan')");
+
+    if ($result) {
+        echo "<script>
+        alert('Successfully Added');
+        document.location.href = '../user/index.php';
+    </script>";
+    } else {
+        echo "Error: " . mysqli_error($mysqli);
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Tambah Rating</title>
-    <link rel="icon" type="image/png" href="logotitle.png">
+    <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="styleuptade.css">
 </head>
 <body>
@@ -21,23 +66,11 @@
                 <option value="1">1</option>
             </select>
 
-            <input type="text" name="username" placeholder="Username">
+            <input type="hidden" name="id_user" value="<?php echo $id_user; ?>">
+            <input type="hidden" name="username" value="<?php echo htmlspecialchars($userData['username']); ?>">
+            <input type="hidden" name="foto_profil" value="<?php echo htmlspecialchars($userData['foto_profil']); ?>">
             <input type="text" name="pesan" placeholder="Pesan penilaian">
-            <button class="button" name="sumbit" type="submit">Kirim</button>
-            <?php
-            if(isset($_POST['sumbit'])){
-                $rating= $_POST['rating'];
-                $username= $_POST['username'];
-                $pesan= $_POST['pesan'];
-
-                include_once("../koneksi.php");
-
-                $result = mysqli_query($mysqli,
-                "INSERT INTO rating(rating,username,pesan) VALUES ('$rating','$username','$pesan')");
-
-                header("location:../user/index.php");
-            }
-            ?>
+            <button class="button" name="submit" type="submit">Kirim</button>
         </form>
     </div>
 </body>

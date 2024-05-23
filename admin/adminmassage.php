@@ -8,9 +8,9 @@
     <link rel="icon" type="image/png" href="../logotitle.png">
 </head>
 <body>
-    <header>
+<header>
         <a href="#" class="logo">
-            <img src="img/logo1.png" alt="">
+            <img src="../user/img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
@@ -19,6 +19,7 @@
             <li><a href="admintransaksi.php">transaction</a></li>
             <li><a href="adminmassage.php">Massange</a></li>
             <li><a href="adminrating.php">Rating</a></li>
+            <li><a href="profil.php">profil</a></li>
         </ul>
         </div>
     </header>
@@ -32,6 +33,7 @@
         <table border="1" class="table">
             <tr>
                 <th>Nomer</th>
+                <th>id_user</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>Massage</th>
@@ -39,13 +41,21 @@
             </tr>
             <?php
             include '../koneksi.php';
-            $query_mysql = mysqli_query($mysqli, "SELECT * FROM kontak") or die(mysqli_error($mysqli));
+            
+            $query = "
+                SELECT kontak.id_pesan, kontak.pesan, 
+                       user.id_user, user.username, user.email
+                FROM kontak
+                JOIN user ON kontak.id_user = user.id_user
+            ";
+            $query_mysql = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
             $nomor = 1;
             while($data = mysqli_fetch_array($query_mysql)) { 
             ?>
             <tr>
                 <td><?php echo $nomor++; ?></td>
-                <td><?php echo $data['username']; ?></td>
+                <td><?php echo $data['id_user']; ?></td>
+               <td><?php echo $data['username']; ?></td>
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['pesan']; ?></td>
                 <td><a href="adminmassagehapus.php?id=<?php echo $data['id_pesan']; ?>" class="btn-hapus">Hapus</a></td>

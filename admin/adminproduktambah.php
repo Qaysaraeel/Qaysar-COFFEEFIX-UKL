@@ -16,8 +16,7 @@
             <form action="adminproduktambah.php" method="POST" enctype="multipart/form-data">
                 <input type="text" id="nama_produk" name="nama_produk" placeholder="Nama produk" required><br>
                 <input type="text" id="harga_produk" name="harga_produk" placeholder="Harga produk" required><br>
-                <input type="file" id="gambar_produk" name="gambar_produk" accept=".jpg, .jpeg, .png" required><br>
-                <input type="text" id="stock" name="stock" placeholder="Stock" required><br><br>
+                <input type="file" id="gambar_produk" name="gambar_produk" accept=".jpg, .jpeg, .png" required><br><br>
                 <input type="submit" name="submit" class="button" value="Tambah Produk">
             </form>
 
@@ -25,8 +24,6 @@
             if(isset($_POST['submit'])){
                 $nama_produk = $_POST['nama_produk'];
                 $harga_produk = $_POST['harga_produk'];
-                $stock = $_POST['stock'];
-
                 // Handle file upload
                 if ($_FILES["gambar_produk"]["error"] == 4) {
                     echo "<script> alert('Image Does Not Exist'); </script>";
@@ -51,7 +48,7 @@
                         include_once("../koneksi.php");
 
                         $result = mysqli_query($mysqli, 
-                        "INSERT INTO products(nama_produk, harga_produk, gambar_produk, stock) VALUES ('$nama_produk', '$harga_produk', '$newImageName', '$stock')");
+                        "INSERT INTO products(nama_produk, harga_produk, gambar_produk) VALUES ('$nama_produk', '$harga_produk', '$newImageName')");
 
                         if ($result) {
                             echo "<script>

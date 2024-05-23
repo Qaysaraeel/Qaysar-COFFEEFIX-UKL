@@ -40,9 +40,10 @@ if(isset($_POST['update'])) {
     $result = mysqli_query($mysqli, $query);
 
     if($result) {
-        echo "Data berhasil diperbarui.";
-        header("Location: adminuser.php"); // Redirect kembali ke halaman data user
-        exit();
+        echo "<script>
+        alert('Successfully Added');
+        document.location.href = '../index.php';
+        </script>";
     } else {
         echo "Terjadi kesalahan: " . mysqli_error($mysqli);
     }
@@ -72,6 +73,7 @@ if(isset($_GET['id'])) {
 <div class="container">
     <header>
         <h1 class="title">Update User</h1>
+
     </header>
     <section class="form">
         <form method="POST" action="" enctype="multipart/form-data">
@@ -85,6 +87,7 @@ if(isset($_GET['id'])) {
 
             <label for="foto_profil">Profile Picture:</label>
             <input type="file" id="foto_profil" name="foto_profil" accept="image/*"><br><br>
+            <p>*Ingat Perubahan yang telah kamu rubah!</p>
 
             <input type="submit" name="update" value="Update" class="button">
         </form>

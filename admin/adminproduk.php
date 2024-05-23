@@ -8,18 +8,20 @@
     <link rel="icon" type="image/png" href="../logotitle.png">
 </head>
 <body>
-    <header>
+<header>
         <a href="#" class="logo">
-            <img src="img/logo1.png" alt="">
+            <img src="../user/img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
             <li><a href="adminuser.php">User</a></li>
             <li><a href="adminproduk.php">Products</a></li>
             <li><a href="admintransaksi.php">transaction</a></li>
-            <li><a href="adminmassage.php">Massage</a></li>
+            <li><a href="adminmassage.php">Massange</a></li>
             <li><a href="adminrating.php">Rating</a></li>
+            <li><a href="profil.php">profil</a></li>
         </ul>
+        </div>
     </header>
     <section class="user">
         <h1 class="heading">Data Products</h1>
@@ -33,7 +35,6 @@
                 <th>Name Products</th>
                 <th>Price Products</th>
                 <th>Gambar</th>
-                <th>Stock</th>
                 <th>Action</th>
                 <th>Action</th>
             </tr>
@@ -49,7 +50,6 @@
                 <td><?php echo $data['nama_produk']; ?></td>
                 <td><?php echo $data['harga_produk']; ?></td>
                 <td><img src="img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>"></td>
-                <td><?php echo $data['stock']; ?></td>
                 <td><a href="adminprodukhapus.php?id=<?php echo $data['id_produk']; ?>" class="btn-hapus">Hapus</a></td>
                 <td><a href="adminprodukuptade.php?id=<?php echo $data['id_produk']; ?>" class="btn-update">Update</a></td>
             </tr>

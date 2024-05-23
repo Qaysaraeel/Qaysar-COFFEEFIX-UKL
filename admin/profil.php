@@ -25,33 +25,25 @@ mysqli_close($mysqli);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="profil.css">
+    <link rel="stylesheet" href="../user/profil.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
-<header>
+    <header>
         <a href="#" class="logo">
-            <img src="img/logo.png" alt="">
+            <img src="../user/img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
-            <li><a href="index.php">Beranda</a></li>
-            <li><a href="index.php">Tentang</a></li>
-            <li><a href="index.php">Produk</a></li>
-            <li><a href="index.php">Ulasan</a></li>
-            <li><a href="index.php">Hubungi Kami</a></li>
-        </ul>
-        <div class="header-icon">
-            <a href="index.php"><i class='bx bx-cart-alt'></i></a>
-            <a href="#"><i class='bx bx-search' id="search-icon"></i></a>
-        </div>
-        <div class="search-box">
-            <input type="search" name="" id="" placeholder="Search Here...">
-        </div>
-        <ul class="navbar">
+            <li><a href="adminuser.php">User</a></li>
+            <li><a href="adminproduk.php">Products</a></li>
+            <li><a href="admintransaksi.php">transaction</a></li>
+            <li><a href="adminmassage.php">Massage</a></li>
+            <li><a href="adminrating.php">Rating</a></li>
             <li><a href="../index.php">Logout</a></li>
         </ul>
+        </div>
     </header>
     <br><br><br>
     <section class="user-info">

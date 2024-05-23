@@ -10,15 +10,16 @@
 <body>
     <header>
         <a href="#" class="logo">
-            <img src="img/logo1.png" alt="">
+            <img src="../user/img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
             <li><a href="adminuser.php">User</a></li>
             <li><a href="adminproduk.php">Products</a></li>
             <li><a href="admintransaksi.php">transaction</a></li>
-            <li><a href="adminmassage.php">Massage</a></li>
+            <li><a href="adminmassage.php">Massange</a></li>
             <li><a href="adminrating.php">Rating</a></li>
+            <li><a href="profil.php">profil</a></li>
         </ul>
         </div>
     </header>
@@ -31,14 +32,15 @@
     <table border="1" class="table">
         <tr>
             <th>Nomer</th>
-            <th>Id Transaction</th>
+            <th>id transaksi</th>
             <th>Id User</th>
-            <th>Id Products</th>
-            <th>Total Transaction</th>
-            <th>Transaction Method</th>
-            <th>Transaction Date</th>
+            <th>Id Produk</th>
+            <th>Jumlah</th>
+            <th>Total Transaksi</th>
+            <th>Metode Transaksi</th>
+            <th>Tanggal Transaksi</th>            
+            <th>Waktu Transaksi</th>            
             <th>Action</th> 
-            <th>Action</th><!-- Kolom tambahan untuk tombol hapus -->
         </tr>
         <?php
         include '../koneksi.php';
@@ -51,11 +53,12 @@
             <td><?php echo $data['id_transaksi']; ?></td>
             <td><?php echo $data['id_user']; ?></td>
             <td><?php echo $data['id_produk']; ?></td>
+            <td><?php echo $data['jumlah']; ?></td>
             <td><?php echo $data['total_transaksi']; ?></td>
             <td><?php echo $data['metode_transaksi']; ?></td>
             <td><?php echo $data['tanggal_transaksi']; ?></td>
-            <td><a href="admintransaksihapus.php?id=<?php echo $data['id_transaksi']; ?>" class="btn-hapus">Hapus</a></td>
-            <td><a href="admintransaksiuptade.php?id=<?php echo $data['id_transaksi']; ?>" class="btn-update">Update</a></td>
+            <td><?php echo $data['waktu_transaksi']; ?></td>
+            <td><a href="admintransaksihapus.php?id=<?php echo $data['id_transaksi']; ?>" class="btn-1">Hapus</a></td>
         </tr>
         <?php } ?>
     </table>

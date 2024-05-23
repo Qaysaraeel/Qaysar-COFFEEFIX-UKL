@@ -17,7 +17,7 @@
             <a href="login.php?id=<?php echo $data['id_user']; ?>"><button class="button">Login</button></a>
         </form>
         <div class="forgot">
-            <a href="register.php">Register</a> <a href="#">Forgot Password</a>
+            <p>Tidak memiliki akun? <a href="register.php">Register</a></p>
         </div>
     </div>
 </body>
