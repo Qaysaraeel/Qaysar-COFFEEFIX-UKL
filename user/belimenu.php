@@ -166,7 +166,7 @@ if (isset($_GET['id'])) {
             <h3><?php echo $data['nama_produk']; ?></h3>
             <div class="content">
                 <span>Rp: <?php echo $data['harga_produk']; ?></span>
-                <a href="belimenu.php?id=<?php echo $data['id_produk']; ?>">Add to Cart</a>
+                <a href="belimenu.php?id=<?php echo $data['id_produk']; ?>">Beli</a>
             </div>
         </div>
         <?php } ?>

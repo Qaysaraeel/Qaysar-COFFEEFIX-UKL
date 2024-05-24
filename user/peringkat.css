@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-padding-top: 4rem;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+}
+:root{
+    --main-color: #bc9667;
+    --second-color: #edeae3;
+    --text-color: #1b1b1b;
+    --bg-color: #fff;
+    --box-shadow: 2px 2px 10px 4px rgb(14 55 54 / 15%);
+
+}
+header{
+    background-color: #1b1b1b;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 18px 100px;
+    transition: 0.5s linear;
+}
+header.shadow {
+    background: var(--text-color);
+    box-shadow: var(--box-shadow);
+}
+.logo img{
+    width: 120px;
+}
+.navbar{
+    display: flex;
+}
+.navbar a{
+    padding: 8px 17px;
+    color: var(--bg-color);
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.navbar a:hover{
+    background: var(--main-color);
+    border-radius: 0.2rem;
+    transition: 0.2 all linear;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+h1{
+    text-transform: uppercase;
+}
+.encouragement {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.encouragement p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.btn{
+    padding: 10px 40px;
+    border-radius: 0.3rem;
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-weight: 500;
+}
+.btn:hover{
+    background: #8a6f4d;
+}
+.peringkat {
+    padding: 50px 0;
+}
+
+.peringkat .container {
+    width: 80%;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.peringkat h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
+}
+
+.ranking-container {
+    margin-top: 20px;
+}
+
+.ranking-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.ranking-container th, .ranking-container td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.ranking-container th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.ranking-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.ranking-container tr:hover {
+    background-color: #f1f1f1;
+}
+
+.ranking-container th:first-child, .ranking-container td:first-child {
+    text-align: center;
+}
+
+.ranking-container th:last-child, .ranking-container td:last-child {
+    text-align: right;
+}

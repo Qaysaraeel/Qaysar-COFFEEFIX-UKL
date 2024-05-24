@@ -36,21 +36,12 @@ mysqli_close($mysqli);
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
-            <li><a href="index.php">Beranda</a></li>
-            <li><a href="index.php">Tentang</a></li>
-            <li><a href="index.php">Produk</a></li>
-            <li><a href="index.php">Ulasan</a></li>
-            <li><a href="index.php">Hubungi Kami</a></li>
+            <li><a href="index.php">Kembali ke Halaman Utama</a></li>
+            <li><a href="riwayatbeli.php">Riwayat Pembelian</a></li>
+            <li><a href="peringkat.php">Peringkat pembelian</a></li>
         </ul>
-        <div class="header-icon">
-            <a href="index.php"><i class='bx bx-cart-alt'></i></a>
-            <a href="#"><i class='bx bx-search' id="search-icon"></i></a>
-        </div>
-        <div class="search-box">
-            <input type="search" name="" id="" placeholder="Search Here...">
-        </div>
         <ul class="navbar">
-            <li><a href="../index.php">Logout</a></li>
+            <li><a href="../index.php">Log Out</a></li>
         </ul>
     </header>
     <br><br><br>

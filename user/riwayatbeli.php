@@ -32,6 +32,20 @@ if (!$result) {
     die("Query Error: " . mysqli_error($mysqli));
 }
 
+// Calculate total transactions
+$query_total = "
+    SELECT SUM(total_transaksi) as total_amount
+    FROM transaksi
+    WHERE id_user = '$id_user'
+";
+$result_total = mysqli_query($mysqli, $query_total);
+
+if (!$result_total) {
+    die("Query Error: " . mysqli_error($mysqli));
+}
+
+$totalAmount = mysqli_fetch_assoc($result_total)['total_amount'];
+
 ?>
 
 <!DOCTYPE html>
@@ -41,7 +55,7 @@ if (!$result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Riwayat Pembelian</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="riwayatbeli.css">
+    <link rel="stylesheet" href="riwayatbeli1.css">
 </head>
 <body>
     <header>
@@ -51,6 +65,7 @@ if (!$result) {
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
             <li><a href="index.php">Kembali ke Halaman Utama</a></li>
+            <li><a href="peringkat.php">Peringkat Pembelian</a></li>
         </ul>
         <ul class="navbar">
             <li><a href="profil.php">profil</a></li>
@@ -60,53 +75,55 @@ if (!$result) {
     <br><br><br>
 
     <section class="riwayatbeli">
-    <div class="container">
-        <h1>Riwayat Pembelian</h1>
-        <div class="transactions-container">
-            <?php
-            if (mysqli_num_rows($result) > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    ?>
-                    <div class="transaction">
-                        <p><strong>Nama Produk:</strong> <?php echo $row['nama_produk']; ?></p>
-                        <p><strong>Harga Produk:</strong> Rp <?php echo number_format($row['harga_produk'], 0, ',', '.'); ?></p>
-                        <p><strong>Jumlah:</strong> <?php echo $row['jumlah']; ?></p>
-                        <p><strong>Total Transaksi:</strong> Rp <?php echo number_format($row['total_transaksi'], 0, ',', '.'); ?></p>
-                        <p><strong>Metode Transaksi:</strong> <?php echo $row['metode_transaksi']; ?></p>
-                        <p><strong>Tanggal Transaksi:</strong> <?php echo $row['tanggal_transaksi']; ?></p>
-                        <p><strong>Waktu Transaksi:</strong> <?php echo $row['waktu_transaksi']; ?></p>
-                    </div>
-                    <?php
+        <div class="container">
+            <h1>Riwayat Pembelian</h1>
+            <p><strong>Total Belanja Keseluruhan:</strong> Rp <?php echo number_format($totalAmount, 0, ',', '.'); ?></p> <br>
+            <a href="peringkat.php" class="btn">Lihat peringkat Berdasarkan Total Belanja</a><br><br>
+            <div class="transactions-container">
+                <?php
+                if (mysqli_num_rows($result) > 0) {
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                        <div class="transaction">
+                            <p><strong>Nama Produk:</strong> <?php echo htmlspecialchars($row['nama_produk']); ?></p>
+                            <p><strong>Harga Produk:</strong> Rp <?php echo number_format($row['harga_produk'], 0, ',', '.'); ?></p>
+                            <p><strong>Jumlah:</strong> <?php echo htmlspecialchars($row['jumlah']); ?></p>
+                            <p><strong>Total Transaksi:</strong> Rp <?php echo number_format($row['total_transaksi'], 0, ',', '.'); ?></p>
+                            <p><strong>Metode Transaksi:</strong> <?php echo htmlspecialchars($row['metode_transaksi']); ?></p>
+                            <p><strong>Tgl Transaksi:</strong> <?php echo htmlspecialchars($row['tanggal_transaksi']); ?></p>
+                            <p><strong>Waktu Transaksi:</strong> <?php echo htmlspecialchars($row['waktu_transaksi']); ?></p>
+                        </div>
+                        <?php
+                    }
+                } else {
+                    echo "<p>Belum ada riwayat pembelian.</p>";
                 }
-            } else {
-                echo "<p>Belum ada riwayat pembelian.</p>";
-            }
-            ?>
+                ?>
+            </div>
         </div>
-    </div>
     </section>
 
     <section class="products" id="products">
     <div class="heading">
-        <h2>BELI MENU LAGI</h2>
+        <h2>BELI MENU</h2>
     </div>
-    <div class="products-container">
-        <?php
-        include '../koneksi.php';
-        $query_mysql = mysqli_query($mysqli, "SELECT * FROM products") or die(mysqli_error($mysqli));
-        $nomor = 1;
-        while($data = mysqli_fetch_array($query_mysql)) { 
-        ?>
-        <div class="box">
-            <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
-            <h3><?php echo $data['nama_produk']; ?></h3>
-            <div class="content">
-                <span>Rp: <?php echo $data['harga_produk']; ?></span>
-                <a href="belimenu.php?id=<?php echo $data['id_produk']; ?>">Add to Cart</a>
+    <div class="products-container" id="products-container">
+            <?php
+            include '../koneksi.php';
+            $query_mysql = mysqli_query($mysqli, "SELECT * FROM products") or die(mysqli_error($mysqli));
+            while($data = mysqli_fetch_array($query_mysql)) { 
+            ?>
+            <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
+                <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
+                <h3><?php echo $data['nama_produk']; ?></h3>
+                <p><?php echo $data['kategori']; ?></p>
+                <h4>Rp: <?php echo $data['harga_produk']; ?></h4><br>
+                <div class="content">
+                    <h3><a href="belimenu.php?id=<?php echo $data['id_produk']; ?>" class="btn">Beli</a></h3>
+                </div>
             </div>
+            <?php } ?>
         </div>
-        <?php } ?>
-    </div>
     </section>
 
     

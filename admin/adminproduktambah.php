@@ -15,18 +15,27 @@
         <section class="form">
             <form action="adminproduktambah.php" method="POST" enctype="multipart/form-data">
                 <input type="text" id="nama_produk" name="nama_produk" placeholder="Nama produk" required><br>
+
+                <label for="kategori">Kategori:</label>
+                <select name="kategori" id="kategori" required>
+                    <option value="coffee">coffee</option>
+                    <option value="makanan">makanan</option>
+                </select><br>
+
                 <input type="text" id="harga_produk" name="harga_produk" placeholder="Harga produk" required><br>
                 <input type="file" id="gambar_produk" name="gambar_produk" accept=".jpg, .jpeg, .png" required><br><br>
                 <input type="submit" name="submit" class="button" value="Tambah Produk">
             </form>
 
             <?php
-            if(isset($_POST['submit'])){
+            if (isset($_POST['submit'])) {
                 $nama_produk = $_POST['nama_produk'];
+                $kategori = $_POST['kategori'];
                 $harga_produk = $_POST['harga_produk'];
+
                 // Handle file upload
                 if ($_FILES["gambar_produk"]["error"] == 4) {
-                    echo "<script> alert('Image Does Not Exist'); </script>";
+                    echo "<script>alert('Image Does Not Exist');</script>";
                 } else {
                     $fileName = $_FILES["gambar_produk"]["name"];
                     $fileSize = $_FILES["gambar_produk"]["size"];
@@ -35,10 +44,11 @@
                     $validImageExtension = ['jpg', 'jpeg', 'png'];
                     $imageExtension = explode('.', $fileName);
                     $imageExtension = strtolower(end($imageExtension));
+                    
                     if (!in_array($imageExtension, $validImageExtension)) {
-                        echo "<script> alert('Invalid Image Extension'); </script>";
+                        echo "<script>alert('Invalid Image Extension');</script>";
                     } else if ($fileSize > 1000000) {
-                        echo "<script> alert('Image Size Is Too Large'); </script>";
+                        echo "<script>alert('Image Size Is Too Large');</script>";
                     } else {
                         $newImageName = uniqid();
                         $newImageName .= '.' . $imageExtension;
@@ -48,7 +58,7 @@
                         include_once("../koneksi.php");
 
                         $result = mysqli_query($mysqli, 
-                        "INSERT INTO products(nama_produk, harga_produk, gambar_produk) VALUES ('$nama_produk', '$harga_produk', '$newImageName')");
+                        "INSERT INTO products (nama_produk, kategori, harga_produk, gambar_produk) VALUES ('$nama_produk', '$kategori', '$harga_produk', '$newImageName')");
 
                         if ($result) {
                             echo "<script>

@@ -33,6 +33,7 @@
                 <th>Nomer</th>
                 <th>Id_Products</th>
                 <th>Name Products</th>
+                <th>Kategory</th>
                 <th>Price Products</th>
                 <th>Gambar</th>
                 <th>Action</th>
@@ -48,6 +49,7 @@
                 <td><?php echo $nomor++; ?></td>
                 <td><?php echo $data['id_produk']; ?></td>
                 <td><?php echo $data['nama_produk']; ?></td>
+                <td><?php echo $data['kategori']; ?></td>
                 <td><?php echo $data['harga_produk']; ?></td>
                 <td><img src="img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>"></td>
                 <td><a href="adminprodukhapus.php?id=<?php echo $data['id_produk']; ?>" class="btn-hapus">Hapus</a></td>

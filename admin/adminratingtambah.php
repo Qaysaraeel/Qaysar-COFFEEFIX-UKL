@@ -72,6 +72,9 @@ if(isset($_POST['submit'])){
             <input type="text" name="pesan" placeholder="Pesan penilaian">
             <button class="button" name="submit" type="submit">Kirim</button>
         </form>
+
+        <br><br>
+        <a href="../user/index.php"><button class="button" type="submit">Kembali ke Halaman Utama</button></a>
     </div>
 </body>
 </html>

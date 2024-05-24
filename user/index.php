@@ -25,7 +25,7 @@ mysqli_close($mysqli);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="index1.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
@@ -38,18 +38,19 @@ mysqli_close($mysqli);
         <ul class="navbar">
             <li><a href="#home">Beranda</a></li>
             <li><a href="#about">Tentang</a></li>
-            <li><a href="#products">Produk</a></li>
+            <li><a href="#products">menu</a></li>
             <li><a href="#customers">Ulasan</a></li>
             <li><a href="#contact">Hubungi Kami</a></li>
         </ul>
         <div class="header-icon">
-            <a href="#"><i class='bx bx-search' id="search-icon"></i></a>
+            <a href="#"><i class='bx bx-seacrh-' id="search-icon"></i></a>
         </div>
         <div class="search-box">
             <input type="search" name="" id="" placeholder="Search Here...">
         </div>
         <ul class="navbar">
             <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
+            <li><a href="peringkat.php">peringkat pembelian</a></li>
             <li><a href="profil.php">profil</a></li>
         </ul>
     </header>
@@ -72,31 +73,36 @@ mysqli_close($mysqli);
         <div class="about-text">
             <h2>Tentang Kami</h2>
             <p>Selamat datang di COFFEE, tempat di mana kecintaan pada kopi bertemu dengan keahlian dalam setiap cangkir. Kami berdedikasi untuk menghadirkan pengalaman kopi yang luar biasa bagi Anda, dari biji kopi pilihan hingga proses penyeduhan yang sempurna.</p><br>
-            <a href="#" class="btn">Pelajari Lebih Lanjut</a>
+            <a href="https://id.wikipedia.org/wiki/Kopi" class="btn">Pelajari Lebih Lanjut</a>
         </div>
     </section>
 
     <section class="products" id="products">
     <div class="heading">
-        <h2>PRODUK KAMI</h2>
-    </div>
-    <div class="products-container">
+        <h2>menu populer</h2>
+    </div><br>
+    <div class="products-container" id="products-container">
         <?php
         include '../koneksi.php';
         $query_mysql = mysqli_query($mysqli, "SELECT * FROM products") or die(mysqli_error($mysqli));
-        $nomor = 1;
+        $counter = 0; // Initialize counter
         while($data = mysqli_fetch_array($query_mysql)) { 
+            if ($counter >= 3) break; 
+            $counter++;
         ?>
-        <div class="box">
+        <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
             <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
             <h3><?php echo $data['nama_produk']; ?></h3>
+            <p><?php echo $data['kategori']; ?></p>
+            <h4>Rp: <?php echo $data['harga_produk']; ?></h4><br>
             <div class="content">
-                <span>Rp: <?php echo $data['harga_produk']; ?></span>
-                <a href="belimenu.php?id=<?php echo $data['id_produk']; ?>">Add to Cart</a>
+                <h3><a href="belimenu.php?id=<?php echo $data['id_produk']; ?>" class="btn">Beli</a></h3>
             </div>
         </div>
         <?php } ?>
     </div>
+    <br><br>
+    <a href="produk.php" class="btn">Lihat Semua Menu</a>
     </section>
 
     <section class="customers" id="customers">
@@ -145,7 +151,7 @@ mysqli_close($mysqli);
             </div>
             <?php } ?>
         </div>
-        <br>
+        <br><br>
         <a href="../admin/adminratingtambah.php?id_user=<?php echo $userData['id_user']; ?>" class="btn">Berikan Ratingmu!</a>
     </section>
 

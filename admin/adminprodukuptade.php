@@ -6,6 +6,7 @@ if (isset($_GET['id'])) {
 
     if (isset($_POST['submit'])) {
         $nama_produk = $_POST['nama_produk'];
+        $kategori = $_POST['kategori'];
         $harga_produk = $_POST['harga_produk'];
 
         // Handle file upload
@@ -33,7 +34,7 @@ if (isset($_GET['id'])) {
             }
         }
 
-        $query = "UPDATE products SET nama_produk='$nama_produk', harga_produk='$harga_produk', gambar_produk='$newImageName' WHERE id_produk='$id_produk'";
+        $query = "UPDATE products SET nama_produk='$nama_produk',kategori='$kategori', harga_produk='$harga_produk', gambar_produk='$newImageName' WHERE id_produk='$id_produk'";
         $result = mysqli_query($mysqli, $query);
 
         if ($result) {
@@ -70,6 +71,13 @@ if (isset($_GET['id'])) {
         <section class="form">
             <form method="POST" action="" enctype="multipart/form-data">
                 <input type="text" id="nama_produk" name="nama_produk" value="<?php echo $data['nama_produk']; ?>" required><br>
+
+                <label for="">Kategory:</label>
+                <select name="kategori" id="">
+                    <option value="coffee">coffee</option>
+                    <option value="makanan">makanan</option>
+                </select> <br>
+
                 <input type="text" id="harga_produk" name="harga_produk" value="<?php echo $data['harga_produk']; ?>" required><br>
                 <input type="file" id="gambar_produk" name="gambar_produk" accept=".jpg, .jpeg, .png"><br>
                 <input type="hidden" name="gambar_produk_existing" value="<?php echo $data['gambar_produk']; ?>"><br>
