@@ -72,7 +72,7 @@ if(isset($_GET['id'])) {
 <body>
 <div class="container">
     <header>
-        <h1 class="title">Update User</h1>
+        <h1 class="title">Edit profil</h1>
 
     </header>
     <section class="form">
@@ -91,6 +91,9 @@ if(isset($_GET['id'])) {
 
             <input type="submit" name="update" value="Update" class="button">
         </form>
+
+        <br><br>
+        <a href="../user/profil.php"><button class="button" type="submit">Kembali</button></a>
     </section>
 </div>
 </body>

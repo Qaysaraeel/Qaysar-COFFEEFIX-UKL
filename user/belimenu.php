@@ -100,10 +100,11 @@ if (isset($_GET['id'])) {
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
             <li><a href="index.php">Kembali ke Halaman Utama</a></li>
+            <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
+            <li><a href="peringkat.php">Peringkat Pembelian</a></li>
         </ul>
         <ul class="navbar">
             <li><a href="profil.php">profil</a></li>
-            <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
         </ul>
     </header>
     
@@ -152,7 +153,7 @@ if (isset($_GET['id'])) {
 
     <section class="products" id="products">
     <div class="heading">
-        <h2>PRODUK KAMI</h2>
+        <h2>MENU</h2>
     </div>
     <div class="products-container">
         <?php

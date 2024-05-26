@@ -65,7 +65,7 @@
             ?>
         </form>
         <div class="forgot">
-            <p>Do you have an account? <a href="index.php">Login here</a></p>
+            <p>Sudah memiliki akun? <a href="index.php">Login disini</a></p>
         </div>
     </div>
 </body>

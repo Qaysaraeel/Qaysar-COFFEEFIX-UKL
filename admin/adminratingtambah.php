@@ -74,7 +74,7 @@ if(isset($_POST['submit'])){
         </form>
 
         <br><br>
-        <a href="../user/index.php"><button class="button" type="submit">Kembali ke Halaman Utama</button></a>
+        <a href="../user/index.php"><button class="button" type="submit">Kembali</button></a>
     </div>
 </body>
 </html>

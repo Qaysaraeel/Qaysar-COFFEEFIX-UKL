@@ -105,7 +105,7 @@ $totalAmount = mysqli_fetch_assoc($result_total)['total_amount'];
 
     <section class="products" id="products">
     <div class="heading">
-        <h2>BELI MENU</h2>
+        <h2>MENU</h2>
     </div>
     <div class="products-container" id="products-container">
             <?php

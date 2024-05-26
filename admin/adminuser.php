@@ -39,7 +39,6 @@
                 <th>Email</th>
                 <th>Level</th>
                 <th>Action</th> <!-- Menambah kolom aksi -->
-                <th>Action</th> <!-- Menambah kolom aksi -->
             </tr>
             <?php
             include '../koneksi.php';
@@ -56,8 +55,6 @@
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['level']; ?></td>
                 <td><a href="adminuserhapus.php?id=<?php echo $data['id_user']; ?>" class="btn-hapus">Hapus</a> <!-- Tombol hapus --></td>
-                <td><a href="adminuseruptade.php?id=<?php echo $data['id_user']; ?>" class="btn-update">Update</a> <!-- Tombol update --></td>
-            </tr>
             <?php } ?>
         </table>
         <br>

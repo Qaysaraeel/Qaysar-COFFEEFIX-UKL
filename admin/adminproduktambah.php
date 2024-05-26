@@ -20,6 +20,7 @@
                 <select name="kategori" id="kategori" required>
                     <option value="coffee">coffee</option>
                     <option value="makanan">makanan</option>
+                    <option value="non-coffee">non-coffee</option>
                 </select><br>
 
                 <input type="text" id="harga_produk" name="harga_produk" placeholder="Harga produk" required><br>

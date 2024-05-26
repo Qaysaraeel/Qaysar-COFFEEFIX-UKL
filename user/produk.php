@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="index1.css">
+    <link rel="stylesheet" href="index.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
@@ -39,15 +39,15 @@
     <section class="products" id="products">
         <br><br><br><br>
         <div class="heading">
-            <h2>SEMUA MENU KAMI</h2>
+            <h2>SEMUA MENU</h2>
         </div><br>
         <div class="search" id="search">
-            <input type="search" id="search-input" placeholder="Search Here..."> <br><br>
+            <input type="search" id="search-input" placeholder="Cari menu disini..."> <br><br>
             <h3>KATEGORI:</h3>
             <button class="btn active" data-filter="all">Semua menu</button>
             <button class="btn" data-filter="coffee">Coffee</button>
             <button class="btn" data-filter="makanan">Makanan</button>
-            <button class="btn" data-filter="Non-Coffee">Non-Coffee</button>
+            <button class="btn" data-filter="non-coffee">Non-Coffee</button>
         </div>
         <div class="products-container" id="products-container">
             <?php

@@ -33,6 +33,7 @@
         <table border="1" class="table">
             <tr>
                 <th>Nomer</th>
+                <th>id_pesan</th>
                 <th>id_user</th>
                 <th>Username</th>
                 <th>Email</th>
@@ -54,6 +55,7 @@
             ?>
             <tr>
                 <td><?php echo $nomor++; ?></td>
+                <td><?php echo $data['id_pesan']; ?></td>
                 <td><?php echo $data['id_user']; ?></td>
                <td><?php echo $data['username']; ?></td>
                 <td><?php echo $data['email']; ?></td>

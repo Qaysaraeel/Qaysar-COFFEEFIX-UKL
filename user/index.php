@@ -163,10 +163,17 @@ mysqli_close($mysqli);
         <div class="container">
             <div class="contactInfo">
                 <div class="box">
+                    <div class="icon"><i class='bx bx-time'></i></div>
+                    <div class="text">
+                        <h3>Jam Operasional</h3>
+                        <p>Setiap hari/24 jam</p>
+                    </div>
+                </div>
+                <div class="box">
                     <div class="icon"><i class='bx bxs-map'></i></div>
                     <div class="text">
                         <h3>Alamat</h3>
-                        <p>Perum Sunvillage Damarsi<br>Sidoarjo, Jawa Timur, <br>61252</p>
+                        <p>Jalan Kavling DPR Gang 1 No.40, Pucang, Kec. Sidoarjo, Kabupaten Sidoarjo, Jawa Timur 61252</p>
                     </div>
                 </div>
                 <div class="box">
@@ -183,6 +190,7 @@ mysqli_close($mysqli);
                         <p>qaysaraqeel71@gmail.com</p>
                     </div>
                 </div>
+                
             </div>
             <div class="contactForm">
                 <form action="index.php" method="POST">

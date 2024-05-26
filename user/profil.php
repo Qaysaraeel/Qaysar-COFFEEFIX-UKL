@@ -46,7 +46,7 @@ mysqli_close($mysqli);
     </header>
     <br><br><br>
     <section class="user-info">
-        <h1 class="heading">User Profile</h1>
+        <h1 class="heading">USER PROFIL</h1>
         <div class="profile-container">
             <img src="../user/img/<?php echo htmlspecialchars($userData['foto_profil']); ?>" alt="Profile Picture" class="profile-picture">
             <table class="user-table">
