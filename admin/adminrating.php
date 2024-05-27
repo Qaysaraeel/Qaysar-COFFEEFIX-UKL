@@ -15,16 +15,16 @@
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
             <li><a href="adminuser.php">User</a></li>
-            <li><a href="adminproduk.php">Products</a></li>
-            <li><a href="admintransaksi.php">transaction</a></li>
-            <li><a href="adminmassage.php">Massange</a></li>
-            <li><a href="adminrating.php">Rating</a></li>
+            <li><a href="adminproduk.php">Produk</a></li>
+            <li><a href="admintransaksi.php">transaksi</a></li>
+            <li><a href="adminmassage.php">kritiK/saran</a></li>
+            <li><a href="adminrating.php">Rating/ulasan</a></li>
             <li><a href="profil.php">profil</a></li>
         </ul>
         </div>
     </header>
     <section class="user">
-        <h1 class="heading">Data Rating</h1>
+        <h1 class="heading">Data Rating/ulasan</h1>
         <br><br>
         <table border="1" class="table">
             <tr>

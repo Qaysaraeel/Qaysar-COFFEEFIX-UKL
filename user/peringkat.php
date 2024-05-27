@@ -69,14 +69,14 @@ while ($row = mysqli_fetch_assoc($result)) {
     <section class="peringkat">
         <div class="container">
             <br><br><br>
-            <h1>Peringkat Pengguna Berdasarkan Total Transaksi</h1>
+            <h1>Peringkat Pengguna Berdasarkan Total pembelian</h1>
             <div class="ranking-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Peringkat</th>
                             <th>Username</th>
-                            <th>Total Belanja</th>
+                            <th>Total pembelian</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,11 +98,11 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <?php if ($userInRanking) { ?>
                     <p>Selamat, kamu berada di peringkat <strong><?php echo array_search($username, array_column($rankings, 'username')) + 1; ?></strong>!</p>
                 <?php } else { ?>
-                    <p>Kamu tidak masuk peringkat. Beli terus produk kami dan jadilah yang terbaik!</p>
+                    <p>Kamu tidak masuk peringkat. Beli terus menu kami dan jadilah yang terbaik!</p>
                 <?php } ?>
                 <br>
 
-                <p>Naikan peringkatmu dengan membeli terus produk kami dan jadilah yang terbaik!</p><br>
+                <p>Naikan peringkatmu dengan membeli terus menu kami dan jadilah yang terbaik!</p><br>
                 <a href="produk.php" class="btn">Beli Sekarang</a>
             </div>
         </div>

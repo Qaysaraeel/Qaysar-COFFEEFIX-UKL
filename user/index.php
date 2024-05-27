@@ -241,7 +241,7 @@ mysqli_close($mysqli);
     <section class="footer">
         <div class="footer-box">
             <h2>Coffe Shop</h2>
-            <p>An inviting coffee haven with <br> delightful brews and warm ambiance.</p>
+            <p>Surga kopi yang mengundang denganminuman yang nikmat dan suasana yang hangat.</p>
             <div class="social">
                 <a href="https://youtube.com/@qaysaraqeel9891?si=3yz20nOEIvtHzt-t"><i class='bx bxl-youtube'></i></a>
                 <a href="https://instagram.com/qaysaraqeell?igshid=OGQ5ZDc2ODk2ZA=="><i class='bx bxl-instagram'></i></a>
@@ -250,28 +250,28 @@ mysqli_close($mysqli);
             </div>
         </div>
         <div class="footer-box">
-            <h3>Support</h3>
-            <li><a href="#">Product</a></li>
-            <li><a href="#">Help & Support</a></li>
-            <li><a href="#">Return Policy</a></li>
-            <li><a href="#">Terms Of use</a></li>
-            <li><a href="#">Follow us</a></li>
+        <h3>Dukungan</h3>
+            <li><a href="#">Produk</a></li>
+            <li><a href="#">Bantuan</a></li>
+            <li><a href="#">Pengembalian</a></li>
+            <li><a href="#">Syarat</a></li>
+            <li><a href="#">Ikuti</a></li>
         </div>
         <div class="footer-box">
-            <h3>Guides</h3>
-            <li><a href="#">Featurs</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Blog Post</a></li>
-            <li><a href="#">Follow us</a></li>
-            <li><a href="#">Our Branches</a></li>
-        </div>
-        <div class="footer-box">
-            <h3>Company</h3>
-            <li><a href="#">About</a></li>
+            <h3>Panduan</h3>
+            <li><a href="#">Fitur</a></li>
+            <li><a href="#">Karier</a></li>
             <li><a href="#">Blog</a></li>
-            <li><a href="#">Product</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Affiliate</a></li>
+            <li><a href="#">Ikuti</a></li>
+            <li><a href="#">Cabang</a></li>
+        </div>
+        <div class="footer-box">
+            <h3>Perusahaan</h3>
+            <li><a href="#">Tentang</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Produk</a></li>
+            <li><a href="#">Masuk</a></li>
+            <li><a href="#">Afiliasi</a></li>
         </div>
     </section>
 

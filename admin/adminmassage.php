@@ -15,16 +15,16 @@
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
             <li><a href="adminuser.php">User</a></li>
-            <li><a href="adminproduk.php">Products</a></li>
-            <li><a href="admintransaksi.php">transaction</a></li>
-            <li><a href="adminmassage.php">Massange</a></li>
-            <li><a href="adminrating.php">Rating</a></li>
+            <li><a href="adminproduk.php">Produk</a></li>
+            <li><a href="admintransaksi.php">transaksi</a></li>
+            <li><a href="adminmassage.php">kritiK/saran</a></li>
+            <li><a href="adminrating.php">Rating/ulasan</a></li>
             <li><a href="profil.php">profil</a></li>
         </ul>
         </div>
     </header>
     <section class="user">
-    <h1 class="heading">Data Massange</h1>
+    <h1 class="heading">Data kritiK/saran</h1>
     <br>
         <a href="../user/index.php" id="contact" class="btn">Form massange</a>
         <br>
@@ -33,11 +33,11 @@
         <table border="1" class="table">
             <tr>
                 <th>Nomer</th>
-                <th>id_pesan</th>
+                <th>id_kritik/saran</th>
                 <th>id_user</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Massage</th>
+                <th>pesan</th>
                 <th>Action</th> <!-- Menambah kolom aksi -->
             </tr>
             <?php
