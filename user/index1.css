@@ -490,7 +490,7 @@ header.shadow{
     }
     .navbar{
         position: absolute;
-        top: -570%;
+        top: -670%;
         left: 0;
         right: 0;
         display: flex;

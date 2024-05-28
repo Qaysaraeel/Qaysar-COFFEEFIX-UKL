@@ -25,7 +25,7 @@ mysqli_close($mysqli);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
@@ -41,6 +41,9 @@ mysqli_close($mysqli);
             <li><a href="#products">menu</a></li>
             <li><a href="#customers">Ulasan</a></li>
             <li><a href="#contact">Hubungi Kami</a></li>
+            <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
+            <li><a href="peringkat.php">Peringkat pembelian</a></li>
+            <li><a href="profil.php">Profil</a></li>
         </ul>
         <div class="header-icon">
             <a href="#"><i class='bx bx-seacrh-' id="search-icon"></i></a>
@@ -48,11 +51,6 @@ mysqli_close($mysqli);
         <div class="search-box">
             <input type="search" name="" id="" placeholder="Search Here...">
         </div>
-        <ul class="navbar">
-            <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
-            <li><a href="peringkat.php">peringkat pembelian</a></li>
-            <li><a href="profil.php">profil</a></li>
-        </ul>
     </header>
 
     <section class="home" id="home">
