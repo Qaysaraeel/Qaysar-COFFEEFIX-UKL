@@ -25,25 +25,24 @@ mysqli_close($mysqli);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="../user/profil.css">
+    <link rel="stylesheet" href="../user/profil1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
-    <header>
+<header>
         <a href="#" class="logo">
             <img src="../user/img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
             <li><a href="adminuser.php">User</a></li>
-            <li><a href="adminproduk.php">Products</a></li>
-            <li><a href="admintransaksi.php">transaction</a></li>
-            <li><a href="adminmassage.php">Massage</a></li>
-            <li><a href="adminrating.php">Rating</a></li>
-            <li><a href="../index.php">Logout</a></li>
+            <li><a href="adminproduk.php">Produk</a></li>
+            <li><a href="admintransaksi.php">Transaksi</a></li>
+            <li><a href="adminmassage.php">Kritik/Saran</a></li>
+            <li><a href="adminrating.php">Rating/Ulasan</a></li>
+            <li><a href="profil.php">Profil</a></li>
         </ul>
-        </div>
     </header>
     <br><br><br>
     <section class="user-info">
@@ -65,7 +64,8 @@ mysqli_close($mysqli);
                 </tr>
             </table>
             <br>
-            <a href="../admin/adminuseruptade.php?id=<?php echo $userData['id_user']; ?>" class="btn">Edit profil</a>
+            <a href="../admin/adminuseruptade.php?id=<?php echo $userData['id_user']; ?>" class="btn">Edit profil</a><br>
+            <a href="../index.php" class="btn">Log Out</a>
         </div>
     </section>
     <br><br><br><br>

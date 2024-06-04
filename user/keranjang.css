@@ -1,0 +1,358 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-padding-top: 4rem;
+    scroll-behavior: smooth;
+    list-style: none;
+    text-decoration: none;
+}
+:root{
+    --main-color: #bc9667;
+    --second-color: #edeae3;
+    --text-color: #1b1b1b;
+    --bg-color: #fff;
+    --box-shadow: 2px 2px 10px 4px rgb(14 55 54 / 15%);
+
+}
+
+section{
+    padding: 50px 100px;
+}
+img{
+    width: 100%;
+}
+body{
+    color: var(--text-color);
+}
+
+.highlight {
+    background-color: yellow;
+    color: red;
+}
+header {
+    background-color: #1b1b1b;
+}
+h1{
+    text-align: center;
+    text-transform: uppercase;
+}
+header{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    right: 0;
+    z-index: 10000;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 18px 20px;
+    transition: 0.5s linear;
+}
+header.shadow{
+    background: var(--text-color);
+    box-shadow: var(--box-shadow);
+}
+.logo img{
+    width: 120px;
+}
+
+.navbar{
+    display: flex;
+}
+.navbar a{
+    padding: 8px 17px;
+    color: var(--bg-color);
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.navbar a:hover{
+    background: var(--main-color);
+    border-radius: 0.2rem;
+    transition: 0.2 all linear;
+}
+.header-icon{
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    column-gap: 0.8rem;
+}
+.header-icon .bx{
+    color: var(--bg-color);
+}
+.header-icon .bx:hover{
+    color: var(--main-color);
+}
+
+#menu-icon{
+    color: var(--bg-color);
+    font-size: 24px;
+    z-index: 10000;
+    cursor: pointer;
+    display: none;
+}
+.search-box {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease; /* Adding a transition effect */
+
+    /* Additional styling */
+    position: absolute; /* Positioning it relative to its closest positioned ancestor */
+    top: 0px; /* Adjusted to appear below the navbar with 60px spacing */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 999;
+}
+.bxs-star, .bxs-star-half, .bx-star {
+color: #bc9667;
+}
+.search-box.active {
+    transform: translateY(100%);
+}
+
+.search-box input{
+    padding: 20px;
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    color: var(--main-color);
+}
+.search-box input::placeholder{
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Keranjang Belanja Section */
+.jumlah-input {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.jumlah-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+section.keranjang {
+    padding: 20px;
+    background-color: #ffffff;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.bxs-star, .bxs-star-half, .bx-star {
+    color: var(--main-color);
+}
+section.keranjang h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+section.keranjang table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+section.keranjang table thead {
+    background-color: #f2f2f2;
+}
+
+section.keranjang table th, section.keranjang table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+section.keranjang table th {
+    background-color: #f2f2f2;
+}
+
+section.keranjang table tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+section.keranjang table img {
+    width: 50px;
+    height: auto;
+    display: block;
+}
+
+section.keranjang .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+section.keranjang .btn:hover {
+    background-color: #555;
+}
+
+section.keranjang a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+section.keranjang a:hover {
+    text-decoration: underline;
+}
+
+/* Total Bayar */
+section.keranjang table tfoot td {
+    font-weight: bold;
+    background-color: #f9f9f9;
+}
+
+.products{
+    background-color: #f2f2f2;
+}
+.products-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+.products-container .box{
+    position: relative;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 0.5rem;
+    box-shadow: var(--box-shadow);
+}
+.products-container img{
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    object-position:center;
+    padding: 25px;
+    background: #c2c2c2;
+    border-radius: 0.5rem;
+}
+.products-container .box h3{
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0.5rem 0 0.5rem;
+    color: #1b1b1b;
+}
+.products-container .box:hover{
+    background: var(--second-color);
+    transition: 0.2s all linear;
+    transform: scale(1.03);
+}
+.products-container .box .content{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.btn{
+    padding: 10px 30px;
+    border-radius: 0.3rem;
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-weight: 500;
+}
+.btn:hover{
+    background: #8a6f4d;
+}
+.btn.active {
+    background-color: #2d261d; /* Gaya tombol aktif, sesuaikan sesuai kebutuhan */
+    color: white;
+}
+.search{
+    margin-bottom: 20px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.search input {
+    width: 300px;
+    padding: 10px;
+    font-size: 16px;
+}
+.header-icon{
+    font-size: 28px;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    column-gap: 0.8rem;
+}
+.header-icon .bx{
+    color: var(--bg-color);
+}
+.header-icon .bx:hover{
+    color: var(--main-color);
+}
+form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style untuk grup form */
+.form-group {
+    flex: 1 1 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Style untuk label */
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Style untuk input dan select */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="hidden"],
+select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+/* Style untuk span */
+span {
+    font-size: 16px;
+}
+
+/* Style untuk tombol submit */
+input[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-end;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}

@@ -9,8 +9,9 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background: url(user/img/bg.png);
+    background: url(img/bg.png);
 }
+
 .container {
     width: 100%;
     max-width: 400px;
@@ -28,15 +29,23 @@ body {
 .form {
     margin-top: 20px;
 }
-
-input[type="email"],
 input[type="text"],
-input[type="password"]{
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="password"] {
     width: calc(100% - 20px);
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 5px;
+}
+textarea {
+  width: 395px; /* lebar textarea */
+  height: 100px; /* tinggi textarea */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: 'Poppins', sans-serif;
 }
 
 .button {
@@ -71,6 +80,55 @@ input[type="password"]{
     text-decoration: underline;
     color: var(--main-color);
 }
+.container select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+  }
+  
+  /* CSS untuk option */
+  .container option {
+    padding: 10px;
+  }
+  
+  /* CSS untuk hover */
+  .container select:hover {
+    --main-color: #947754;
+  }
+  
+  /* CSS untuk focus */
+  .container select:focus {
+    --main-color: #947754;
+    box-shadow: var(--box-shadow);
+  }
+
+  input[type="date"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+  }
+  
+  /* CSS untuk hover */
+  input[type="date"]:hover {
+    --main-color: #947754;
+  }
+  
+  /* CSS untuk focus */
+  input[type="date"]:focus {
+    --main-color: #947754;
+    box-shadow: var(--box-shadow);
+  }
 
 @media only screen and (max-width: 560px) {
     .container {

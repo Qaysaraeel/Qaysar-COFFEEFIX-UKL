@@ -8,6 +8,7 @@ if (isset($_GET['id'])) {
         $nama_produk = $_POST['nama_produk'];
         $kategori = $_POST['kategori'];
         $harga_produk = $_POST['harga_produk'];
+        $deskripsi = $_POST['deskripsi'];
 
         // Handle file upload
         $gambar_produk = $_POST['gambar_produk_existing'];
@@ -34,7 +35,7 @@ if (isset($_GET['id'])) {
             }
         }
 
-        $query = "UPDATE products SET nama_produk='$nama_produk',kategori='$kategori', harga_produk='$harga_produk', gambar_produk='$newImageName' WHERE id_produk='$id_produk'";
+        $query = "UPDATE products SET nama_produk='$nama_produk',kategori='$kategori', harga_produk='$harga_produk', deskripsi='$deskripsi', gambar_produk='$newImageName' WHERE id_produk='$id_produk'";
         $result = mysqli_query($mysqli, $query);
 
         if ($result) {
@@ -53,7 +54,6 @@ if (isset($_GET['id'])) {
     exit;
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,7 +61,7 @@ if (isset($_GET['id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Update Produk</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="styleuptade.css">
+    <link rel="stylesheet" href="styleuptade1.css">
 </head>
 <body>
     <div class="container">
@@ -72,15 +72,18 @@ if (isset($_GET['id'])) {
             <form method="POST" action="" enctype="multipart/form-data">
                 <input type="text" id="nama_produk" name="nama_produk" value="<?php echo $data['nama_produk']; ?>" required><br>
 
-                <label for="">Kategory:</label>
+                <label for="">Kategori:</label>
                 <select name="kategori" id="">
-                    <option value="coffee">coffee</option>
-                    <option value="makanan">makanan</option>
+                    <option value="coffee" <?php if($data['kategori'] == 'coffee') echo 'selected'; ?>>coffee</option>
+                    <option value="makanan" <?php if($data['kategori'] == 'makanan') echo 'selected'; ?>>makanan</option>
+                    <option value="non-coffee" <?php if($data['kategori'] == 'non-coffee') echo 'selected'; ?>>non-coffee</option>
                 </select> <br>
 
                 <input type="text" id="harga_produk" name="harga_produk" value="<?php echo $data['harga_produk']; ?>" required><br>
                 <input type="file" id="gambar_produk" name="gambar_produk" accept=".jpg, .jpeg, .png"><br>
                 <input type="hidden" name="gambar_produk_existing" value="<?php echo $data['gambar_produk']; ?>"><br>
+                <textarea name="deskripsi" id="" placeholder="Deskripsi produk"><?php echo $data['deskripsi'];?></textarea><br><br>
+
                 <input type="submit" name="submit" value="Update" class="button">
             </form>
         </section>

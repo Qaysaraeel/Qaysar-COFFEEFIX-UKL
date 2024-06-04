@@ -54,7 +54,7 @@ header.shadow{
 .navbar a{
     padding: 8px 17px;
     color: var(--bg-color);
-    font-size: 1rem;
+    font-size: 1.05rem;
     text-transform: uppercase;
     font-weight: 500;
 }
@@ -136,7 +136,7 @@ header.shadow{
     margin: 0.5rem 0 1.4rem;
 }
 .btn{
-    padding: 10px 40px;
+    padding: 10px 30px;
     border-radius: 0.3rem;
     background: var(--main-color);
     color: var(--bg-color);
@@ -201,6 +201,7 @@ header.shadow{
     font-weight: 600;
     text-transform: uppercase;
     margin: 0.5rem 0 0.5rem;
+    color: var(--text-color);
 }
 .products-container .box:hover{
     background: var(--second-color);
@@ -212,9 +213,12 @@ header.shadow{
     align-items: center;
     justify-content: space-around;
 }
+.bxs-star, .bxs-star-half, .bx-star {
+    color: var(--main-color);
+}
 .customers-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, auto));
+    grid-template-columns: repeat(auto-fit, minmax(220px, auto));
     gap: 1.5rem;
     margin-top: 2rem;
 }
@@ -562,4 +566,15 @@ header.shadow{
     border-radius: 5px;
     background-color: #f9f9f9;
     color: #555; /* Adjust the color as needed */
+}
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

@@ -4,8 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman data MASSAGE</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
+    <style>
+        /* CSS untuk gaya pencarian */
+        #searchInput {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 400px;
+        }
+
+        /* CSS untuk penyorotan */
+        .highlight {
+            background-color: yellow;
+            color:red;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -21,24 +35,23 @@
             <li><a href="adminrating.php">Rating/ulasan</a></li>
             <li><a href="profil.php">profil</a></li>
         </ul>
-        </div>
     </header>
     <section class="user">
     <h1 class="heading">Data kritiK/saran</h1>
     <br>
-        <a href="../user/index.php" id="contact" class="btn">Form massange</a>
+        <a href="../index.php" class="btn">Log Out</a>
         <br>
         <br>
+        <input type="text" id="searchInput" placeholder="Cari berdasarkan nama pengguna">
         <br>
-        <table border="1" class="table">
+        <br>
+        <table border="1" class="table" id="massageTable">
             <tr>
                 <th>Nomer</th>
-                <th>id_kritik/saran</th>
-                <th>id_user</th>
                 <th>Username</th>
                 <th>Email</th>
                 <th>pesan</th>
-                <th>Action</th> <!-- Menambah kolom aksi -->
+                <th>Action</th>
             </tr>
             <?php
             include '../koneksi.php';
@@ -55,9 +68,7 @@
             ?>
             <tr>
                 <td><?php echo $nomor++; ?></td>
-                <td><?php echo $data['id_pesan']; ?></td>
-                <td><?php echo $data['id_user']; ?></td>
-               <td><?php echo $data['username']; ?></td>
+                <td><?php echo $data['username']; ?></td>
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['pesan']; ?></td>
                 <td><a href="adminmassagehapus.php?id=<?php echo $data['id_pesan']; ?>" class="btn-hapus">Hapus</a></td>
@@ -66,8 +77,30 @@
         </table>
         <br>
         <br>
-    <a href="../index.php" class="btn">Log Out</a>
     </section>
+    
+    <script>
+        document.getElementById("searchInput").addEventListener("input", function() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = this.value.toUpperCase();
+            table = document.getElementById("massageTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // index 1 karena Username
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(input) > -1) {
+                        tr[i].style.display = "";
+                        // Menyorot nama pengguna yang cocok dengan pencarian
+                        var regex = new RegExp('(' + input + ')', 'ig');
+                        td.innerHTML = txtValue.replace(regex, "<span class='highlight'>$1</span>");
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        });
+    </script>
     
 
     <script src="main.js"></script>

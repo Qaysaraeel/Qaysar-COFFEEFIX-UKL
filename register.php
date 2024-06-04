@@ -54,7 +54,7 @@
                         if ($result) {
                             echo "<script>
                                 alert('Successfully Added');
-                                document.location.href = 'index.php';
+                                document.location.href = 'loginnya.php';
                             </script>";
                         } else {
                             echo "Error: " . mysqli_error($mysqli);
@@ -65,7 +65,7 @@
             ?>
         </form>
         <div class="forgot">
-            <p>Sudah memiliki akun? <a href="index.php">Login disini</a></p>
+            <p>Sudah memiliki akun? <a href="loginnya.php">Login disini</a></p>
         </div>
     </div>
 </body>

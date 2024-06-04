@@ -47,20 +47,28 @@ while ($row = mysqli_fetch_assoc($result)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peringkat Pengguna</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="peringkat.css">
+    <link rel="stylesheet" href="peringkat1.css">
 </head>
 <body>
-    <header>
+<header>
         <a href="#" class="logo">
             <img src="img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
+        
+        <div class="header-icon">
+            <a href="#"><i class='bx bx-search' id="search-icon"></i></a>
+        </div>
+        <div class="search-box">
+            <input type="hidden" name="" id="" placeholder="Search Here...">
+        </div>
         <ul class="navbar">
-            <li><a href="index.php">Kembali ke Halaman Utama</a></li>
+            <li><a href="index.php">Beranda</a></li>
+            <li><a href="produk.php">menu</a></li>
+            <li><a href="keranjang.php">Keranjang</a></li>
             <li><a href="riwayatbeli.php">Riwayat Pembelian</a></li>
-        </ul>
-        <ul class="navbar">
-            <li><a href="profil.php">profil</a></li>
+            <li><a href="peringkat.php">Peringkat Pembelian</a></li>
+            <li><a href="profil.php">Profil</a></li>
         </ul>
     </header>
 

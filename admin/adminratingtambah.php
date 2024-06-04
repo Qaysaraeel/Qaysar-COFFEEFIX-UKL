@@ -50,7 +50,7 @@ if(isset($_POST['submit'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman Tambah Rating</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="styleuptade.css">
+    <link rel="stylesheet" href="styleuptade1.css">
 </head>
 <body>
     <div class="container">

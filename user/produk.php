@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coffee</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="index1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
@@ -15,23 +15,42 @@
         header {
             background-color: #1b1b1b;
         }
+        .love{
+            display: inline-flex;
+        }
+        .bxs-heart {
+            color: black;
+            font-size:40px;
+            margin:7px;
+        }
     </style>
 </head>
 <body>
+    <?php
+    // Misalnya Anda mendapatkan id_user dari sesi PHP
+    session_start();
+    $id_user = $_SESSION['id_user'];
+    echo "<script>var id_user = $id_user;</script>";
+    ?>
+    
     <header>
         <a href="#" class="logo">
             <img src="img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
-        <ul class="navbar">
-            <li><a href="index.php">Kembali ke Halaman Utama</a></li>
-        </ul>
+        
+        <div class="header-icon">
+            <a href="#"><i class='bx bx-seacrh' id="search-icon"></i></a>
+        </div>
         <div class="search-box">
             <input type="search" name="" id="" placeholder="Search Here...">
         </div>
         <ul class="navbar">
-            <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
-            <li><a href="peringkat.php">Peringkat Pembelian</a></li>
+            <li><a href="index.php">Beranda</a></li>
+            <li><a href="produk.php">menu</a></li>
+            <li><a href="keranjang.php">Keranjang</a></li>
+            <li><a href="riwayatbeli.php">riwayat pembelian</a></li>
+            <li><a href="peringkat.php">Peringkat pembelian</a></li>
             <li><a href="profil.php">Profil</a></li>
         </ul>
     </header>
@@ -43,7 +62,7 @@
         </div><br>
         <div class="search" id="search">
             <input type="search" id="search-input" placeholder="Cari menu disini..."> <br><br>
-            <h3>KATEGORI:</h3>
+            <h3>KATEGORI:</h3><br>
             <button class="btn active" data-filter="all">Semua menu</button>
             <button class="btn" data-filter="coffee">Coffee</button>
             <button class="btn" data-filter="makanan">Makanan</button>
@@ -52,31 +71,106 @@
         <div class="products-container" id="products-container">
             <?php
             include '../koneksi.php';
-            $query_mysql = mysqli_query($mysqli, "SELECT * FROM products") or die(mysqli_error($mysqli));
-            while($data = mysqli_fetch_array($query_mysql)) { 
+            $query_mysql = "
+                SELECT p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk, 
+                       AVG(t.rating) as avg_rating, COUNT(t.rating) as rating_count
+                FROM products p
+                LEFT JOIN transaksi t ON p.id_produk = t.id_produk
+                GROUP BY p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk
+            ";
+            $result = mysqli_query($mysqli, $query_mysql) or die(mysqli_error($mysqli));
+            while($data = mysqli_fetch_array($result)) {
             ?>
             <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
-                <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
-                <h3><?php echo $data['nama_produk']; ?></h3>
-                <p><?php echo $data['kategori']; ?></p>
-                <h4>Rp: <?php echo $data['harga_produk']; ?></h4><br>
-                <div class="content">
-                    <h3><a href="belimenu.php?id=<?php echo $data['id_produk']; ?>" class="btn">Beli</a></h3>
-                </div>
-            </div>
-            <?php } ?>
+        <a href="detailproduk.php?id=<?php echo $data['id_produk']; ?>">
+            <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
+            <h3><?php echo htmlspecialchars($data['nama_produk']); ?></h3>
+        </a>
+        <p><?php echo htmlspecialchars($data['kategori']); ?></p>
+        <h4>Rp: <?php echo number_format($data['harga_produk'], 0, ',', '.'); ?></h4>
+        <?php 
+        if (!is_null($data['avg_rating'])) { 
+            $rating = $data['avg_rating'];
+            $rating_count = $data['rating_count'];
+            $full_stars = floor($rating);
+            $half_star = ceil($rating - $full_stars);
+            $empty_stars = 5 - $full_stars - $half_star;
+            echo "<p> ";
+            // Full stars
+            for ($i = 0; $i < $full_stars; $i++) {
+                echo "<i class='bx bxs-star'></i>";
+            }
+            // Half star
+            if ($half_star) {
+                echo "<i class='bx bxs-star-half'></i>";
+            }
+            // Empty stars
+            for ($i = 0; $i < $empty_stars; $i++) {
+                echo "<i class='bx bx-star'></i>";
+            }
+            echo " (" . number_format($rating, 1) . "/5) " . "Dari ". $rating_count . " rating" . "</p>" ;
+        } else {
+            echo "<p>Belum ada rating</p>";
+        }
+        ?>
+        <br>
+        <div class="content">
+            <h3><a href="keranjang.php?id=<?php echo $data['id_produk']; ?>" class="btn">Masukan Keranjang</a></h3>  
         </div>
+    </div>
+    <?php } ?>
+    </div>
         <br><br>
     </section>
+    
 
     <script>
+        document.querySelectorAll('.bx.bxs-heart').forEach(icon => {
+    icon.addEventListener('click', function() {
+        // Tangkap ID produk
+        const id_produk = this.getAttribute('data-id');
+        // Periksa apakah ikon telah diklik sebelumnya
+        const isClicked = this.classList.contains('clicked');
+        
+        if (isClicked) {
+            // Jika sudah diklik, hapus status dari localStorage dan ubah warna menjadi hitam
+            localStorage.removeItem(`favorite_${id_produk}`);
+            this.style.color = 'black';
+            this.classList.remove('clicked');
+            // Lakukan apa yang diperlukan ketika menghapus dari favorit, contohnya:
+            // window.location.href = `hapusfavorit.php?id_user=${id_user}&id_produk=${id_produk}`;
+        } else {
+            // Jika belum diklik, simpan status ke localStorage, ubah warna menjadi merah
+            localStorage.setItem(`favorite_${id_produk}`, 'true');
+            this.style.color = 'red';
+            this.classList.add('clicked');
+            // Lakukan apa yang diperlukan ketika menambahkan ke favorit, contohnya:
+            // window.location.href = `menufavorit.php?id_user=${id_user}&id_produk=${id_produk}`;
+        }
+    });
+});
+
+// Saat halaman dimuat
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.bx.bxs-heart').forEach(icon => {
+        const id_produk = icon.getAttribute('data-id');
+        // Periksa status dari localStorage
+        const isFavorite = localStorage.getItem(`favorite_${id_produk}`);
+        if (isFavorite) {
+            // Jika sudah ditandai sebagai favorit, ubah warna menjadi merah
+            icon.style.color = 'red';
+            icon.classList.add('clicked');
+        }
+    });
+});
+
+
     document.addEventListener("DOMContentLoaded", function() {
         const searchInput = document.getElementById("search-input");
         const productsContainer = document.getElementById("products-container");
         const productItems = Array.from(productsContainer.getElementsByClassName("box"));
         const filterButtons = document.querySelectorAll(".search .btn");
 
-        // Menampilkan semua item produk saat halaman dimuat
         productItems.forEach(item => {
             item.style.display = "block";
         });
@@ -126,6 +220,13 @@
             const newHTML = cleanText.replace(regex, `<span class="highlight">$1</span>`);
             element.innerHTML = newHTML;
         }
+
+        document.querySelectorAll('.bx.bxs-heart').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const id_produk = this.getAttribute('data-id');
+                window.location.href = `menufavorit.php?id_user=${id_user}&id_produk=${id_produk}`;
+            });
+        });
     });
     </script>
 

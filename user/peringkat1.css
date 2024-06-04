@@ -123,55 +123,28 @@ header.shadow{
     font-size: 1rem;
     font-weight: 500;
 }
-.container {
-    max-width: 1200px; /* Ubah lebar maksimal kontainer */
-    margin: 20px auto;
-    background: #fff;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-}
-
-h1 {
-    text-align: center;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     color: #333;
-    margin-bottom: 20px;
+    margin: 0;
+    padding: 0;
+}
+h1{
+    text-transform: uppercase;
+}
+.encouragement {
+    text-align: center;
+    margin-top: 20px;
 }
 
-.transactions-container {
-    display: flex;
-    flex-wrap: wrap; /* Membungkus kontainer */
-    gap: 20px;
-    justify-content: space-between; /* Menyebar kontainer secara merata */
+.encouragement p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
-.transaction {
-    background-color: #f2f2f2;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-    flex: 1 1 calc(33.333% - 20px); /* Mengatur ukuran setiap kontainer transaksi */
-    box-sizing: border-box;
-}
-
-.transaction:hover {
-    background-color: #e0e0e0;
-}
-
-.transaction p {
-    margin: 10px 0;
-    color: #555;
-}
-
-.transaction p strong {
-    color: #000;
-}
-section{
-    padding: 50px 100px;
-}
 .btn{
-    padding: 10px 30px;
+    padding: 10px 40px;
     border-radius: 0.3rem;
     background: var(--main-color);
     color: var(--bg-color);
@@ -180,40 +153,58 @@ section{
 .btn:hover{
     background: #8a6f4d;
 }
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4);
-    padding-top: 60px;
+.peringkat {
+    padding: 50px 0;
 }
 
-.modal-content {
-    background-color: var(--bg-color);
-    margin: 5% auto;
-    padding: 20px;
-    border: 1px solid #888;
+.peringkat .container {
     width: 80%;
-    max-width: 400px;
-    border-radius: var(--border-radius);
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 8px;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.peringkat h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #444;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+.ranking-container {
+    margin-top: 20px;
+}
+
+.ranking-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+.ranking-container th, .ranking-container td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.ranking-container th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.ranking-container tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.ranking-container tr:hover {
+    background-color: #f1f1f1;
+}
+
+.ranking-container th:first-child, .ranking-container td:first-child {
+    text-align: center;
+}
+
+.ranking-container th:last-child, .ranking-container td:last-child {
+    text-align: right;
 }

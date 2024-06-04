@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tambah Produk</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="styleuptade.css">
+    <link rel="stylesheet" href="styleuptade1.css">
 </head>
 <body>
     <div class="container">
@@ -25,6 +25,7 @@
 
                 <input type="text" id="harga_produk" name="harga_produk" placeholder="Harga produk" required><br>
                 <input type="file" id="gambar_produk" name="gambar_produk" accept=".jpg, .jpeg, .png" required><br><br>
+                <textarea name="deskripsi" id="" placeholder=" Deskripsi produk"></textarea><br><br>
                 <input type="submit" name="submit" class="button" value="Tambah Produk">
             </form>
 
@@ -33,6 +34,7 @@
                 $nama_produk = $_POST['nama_produk'];
                 $kategori = $_POST['kategori'];
                 $harga_produk = $_POST['harga_produk'];
+                $deskripsi = $_POST['deskripsi'];
 
                 // Handle file upload
                 if ($_FILES["gambar_produk"]["error"] == 4) {
@@ -59,7 +61,7 @@
                         include_once("../koneksi.php");
 
                         $result = mysqli_query($mysqli, 
-                        "INSERT INTO products (nama_produk, kategori, harga_produk, gambar_produk) VALUES ('$nama_produk', '$kategori', '$harga_produk', '$newImageName')");
+                        "INSERT INTO products (nama_produk, kategori, harga_produk, deskripsi, gambar_produk) VALUES ('$nama_produk', '$kategori', '$harga_produk','$deskripsi', '$newImageName')");
 
                         if ($result) {
                             echo "<script>

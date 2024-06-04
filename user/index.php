@@ -28,6 +28,21 @@ mysqli_close($mysqli);
     <link rel="stylesheet" href="index1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+    .navbar li:hover .dropdown {
+        display: block;
+    }
+    .dropdown {
+        display: none;
+        position: absolute;
+        z-index: -10000;
+        background: #1b1b1b;
+        border-radius: 10px;
+    }
+    .dropdown li {
+        float: none;
+    }
+</style>
 </head>
 <body>
     <header>
@@ -35,22 +50,30 @@ mysqli_close($mysqli);
             <img src="img/logo.png" alt="">
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
-        <ul class="navbar">
-            <li><a href="#home">Beranda</a></li>
-            <li><a href="#about">Tentang</a></li>
-            <li><a href="#products">menu</a></li>
-            <li><a href="#customers">Ulasan</a></li>
-            <li><a href="#contact">Hubungi Kami</a></li>
-            <li><a href="riwayatbeli.php">Riwayat pembelian</a></li>
-            <li><a href="peringkat.php">Peringkat pembelian</a></li>
-            <li><a href="profil.php">Profil</a></li>
-        </ul>
+        
         <div class="header-icon">
-            <a href="#"><i class='bx bx-seacrh-' id="search-icon"></i></a>
+            <a href="#"><i class='bx bx-seacrh' id="search-icon"></i></a>
         </div>
         <div class="search-box">
             <input type="search" name="" id="" placeholder="Search Here...">
         </div>
+        <ul class="navbar">
+    <li>
+        <a href="#home">Beranda</a>
+        <ul class="dropdown">
+        <br><li><a href="#about">Tentang</a></li><br>
+            <li><a href="#products">Menu populer</a></li><br>
+            <li><a href="#customers">Ulasan</a></li><br>
+            <li><a href="#contact">Hubungi kami</a></li><br>
+        </ul>
+    </li>
+    <li><a href="produk.php">Menu</a></li>
+    <li><a href="keranjang.php">Keranjang</a></li>
+    <li><a href="riwayatbeli.php">Riwayat Pembelian</a></li>
+    <li><a href="peringkat.php">Peringkat Pembelian</a></li>
+    <li><a href="profil.php">Profil</a></li>
+</ul>
+
     </header>
 
     <section class="home" id="home">
@@ -77,81 +100,139 @@ mysqli_close($mysqli);
 
     <section class="products" id="products">
     <div class="heading">
-        <h2>menu populer</h2>
+        <h2>Rekomendasi untukmu</h2>
     </div><br>
     <div class="products-container" id="products-container">
+    <?php
+    include '../koneksi.php';
+    $query_mysql = "
+        SELECT p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk, 
+               AVG(t.rating) as avg_rating, COUNT(t.rating) as rating_count
+        FROM products p
+        LEFT JOIN transaksi t ON p.id_produk = t.id_produk
+        GROUP BY p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk
+    ";
+    $result = mysqli_query($mysqli, $query_mysql) or die(mysqli_error($mysqli));
+
+    // Fetch all results into an array
+    $products = [];
+    while ($data = mysqli_fetch_array($result)) {
+        $products[] = $data;
+    }
+
+    // Select 3 random keys from the products array
+    $random_keys = array_rand($products, 3);
+
+    foreach ($random_keys as $key) {
+        $data = $products[$key];
+    ?>
+    <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
+        <a href="detailproduk.php?id=<?php echo $data['id_produk']; ?>">
+            <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
+            <h3><?php echo htmlspecialchars($data['nama_produk']); ?></h3>
+        </a>
+        <p><?php echo htmlspecialchars($data['kategori']); ?></p>
+        <h4>Rp: <?php echo number_format($data['harga_produk'], 0, ',', '.'); ?></h4>
+        <?php 
+        if (!is_null($data['avg_rating'])) { 
+            $rating = $data['avg_rating'];
+            $rating_count = $data['rating_count'];
+            $full_stars = floor($rating);
+            $half_star = ceil($rating - $full_stars);
+            $empty_stars = 5 - $full_stars - $half_star;
+            echo "<p> ";
+            // Full stars
+            for ($i = 0; $i < $full_stars; $i++) {
+                echo "<i class='bx bxs-star'></i>";
+            }
+            // Half star
+            if ($half_star) {
+                echo "<i class='bx bxs-star-half'></i>";
+            }
+            // Empty stars
+            for ($i = 0; $i < $empty_stars; $i++) {
+                echo "<i class='bx bx-star'></i>";
+            }
+            echo " (" . number_format($rating, 1) . "/5) " . "Dari ". $rating_count . " rating" . "</p>" ;
+        } else {
+            echo "<p>Belum ada rating</p>";
+        }
+        ?>
+        <br>
+        <div class="content">
+            <h3><a href="keranjang.php?id=<?php echo $data['id_produk']; ?>" class="btn">Masukan Keranjang</a></h3>  
+        </div>
+    </div>
+    <?php } ?>
+    </div>
+    <br><br>
+    <a href="produk.php" class="btn">Lihat Semua Menu</a>
+</section>
+
+
+<section class="customers" id="customers">
+    <div class="heading">
+        <h2>Ulasan Customer</h2>
+    </div>
+    <div class="customers-container">
         <?php
         include '../koneksi.php';
-        $query_mysql = mysqli_query($mysqli, "SELECT * FROM products") or die(mysqli_error($mysqli));
-        $counter = 0; // Initialize counter
-        while($data = mysqli_fetch_array($query_mysql)) { 
-            if ($counter >= 3) break; 
-            $counter++;
+        $query = "
+            SELECT rating.*, user.username, user.foto_profil 
+            FROM rating
+            JOIN user ON rating.id_user = user.id_user
+        ";
+        $query_mysql = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
+
+        // Fetch all results into an array
+        $reviews = [];
+        while ($data = mysqli_fetch_array($query_mysql)) {
+            $reviews[] = $data;
+        }
+
+        // Select 4 random keys from the reviews array
+        $random_keys = array_rand($reviews, 4);
+
+        foreach ($random_keys as $key) {
+            $data = $reviews[$key];
         ?>
-        <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
-            <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
-            <h3><?php echo $data['nama_produk']; ?></h3>
-            <p><?php echo $data['kategori']; ?></p>
-            <h4>Rp: <?php echo $data['harga_produk']; ?></h4><br>
-            <div class="content">
-                <h3><a href="belimenu.php?id=<?php echo $data['id_produk']; ?>" class="btn">Beli</a></h3>
+        <div class="box">
+            <div class="stars">
+                <?php
+                // Tampilkan bintang
+                $rating = $data['rating'];
+                $full_stars = floor($rating);
+                $half_star = ceil($rating - $full_stars);
+                $empty_stars = 5 - $full_stars - $half_star;
+                
+                // Bintang penuh
+                for ($i = 0; $i < $full_stars; $i++) {
+                    echo "<i class='bx bxs-star'></i>";
+                }
+                
+                // Setengah bintang
+                if ($half_star) {
+                    echo "<i class='bx bxs-star-half'></i>";
+                }
+                
+                // Bintang kosong
+                for ($i = 0; $i < $empty_stars; $i++) {
+                    echo "<i class='bx bx-star'></i>";
+                }
+                ?>
             </div>
+            <p><?php echo $data['pesan']; ?></p>
+            <h2><?php echo $data['username']; ?></h2>
+            <img src="../user/img/<?php echo $data['foto_profil']; ?>" width="50" title="<?php echo $data['foto_profil']; ?>">
         </div>
         <?php } ?>
     </div>
     <br><br>
-    <a href="produk.php" class="btn">Lihat Semua Menu</a>
-    </section>
+    <a href="rating.php" class="btn">Lihat semua ulasan</a>
+    <a href="../admin/adminratingtambah.php?id_user=<?php echo $userData['id_user']; ?>" class="btn">Berikan ulasan!</a>
+</section>
 
-    <section class="customers" id="customers">
-        <div class="heading">
-            <h2>ulasan customer</h2>
-        </div>
-        <div class="customers-container">
-            <?php
-            include '../koneksi.php';
-            $query = "
-                SELECT rating.*, user.username, user.foto_profil 
-                FROM rating
-                JOIN user ON rating.id_user = user.id_user
-            ";
-            $query_mysql = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-            while($data = mysqli_fetch_array($query_mysql)) { 
-            ?>
-            <div class="box">
-                <div class="stars">
-                    <?php
-                    // Display stars
-                    $rating = $data['rating'];
-                    $full_stars = floor($rating);
-                    $half_star = ceil($rating - $full_stars);
-                    $empty_stars = 5 - $full_stars - $half_star;
-                    
-                    // Full stars
-                    for ($i = 0; $i < $full_stars; $i++) {
-                        echo "<i class='bx bxs-star'></i>";
-                    }
-                    
-                    // Half star
-                    if ($half_star) {
-                        echo "<i class='bx bxs-star-half'></i>";
-                    }
-                    
-                    // Empty stars
-                    for ($i = 0; $i < $empty_stars; $i++) {
-                        echo "<i class='bx bx-star'></i>";
-                    }
-                    ?>
-                </div>
-                <p><?php echo $data['pesan']; ?></p>
-                <h2><?php echo $data['username']; ?></h2>
-                <img src="../user/img/<?php echo $data['foto_profil']; ?>" width="50" title="<?php echo $data['foto_profil']; ?>">
-            </div>
-            <?php } ?>
-        </div>
-        <br><br>
-        <a href="../admin/adminratingtambah.php?id_user=<?php echo $userData['id_user']; ?>" class="btn">Berikan Ratingmu!</a>
-    </section>
+
 
     <section class="contact" id="contact">
         <div class="content">
@@ -276,12 +357,6 @@ mysqli_close($mysqli);
     <section class="copyright">
         <p>Copyright © @2023. All Rights Reserved.Design By qaysaraqeel.</p>
     </section>
-
-
-
-
-
-
 
     <script src="main.js"></script>
 </body>

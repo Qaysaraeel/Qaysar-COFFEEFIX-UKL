@@ -4,11 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Halaman data USER</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style1.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
+    <style>
+        /* CSS untuk gaya pencarian */
+        #searchInput {
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 400px;
+        }
+
+        /* CSS untuk penyorotan */
+        .highlight {
+            background-color: yellow;
+            color:red;
+        }
+    </style>
 </head>
 <body>
-    <header>
+<header>
         <a href="#" class="logo">
             <img src="../user/img/logo.png" alt="">
         </a>
@@ -26,19 +40,21 @@
     <section class="user">
     <h1 class="heading">Data User COFFEE</h1>
     <br>
-        <a href="../register.php" class="btn">Tambah User</a>
+        <a href="../index.php" class="btn">Log Out</a>
         <br>
         <br>
-        <table border="1" class="table">
+        <input type="text" id="searchInput" placeholder="Cari berdasarkan nama user">
+        <br>
+        <br>
+        <table border="1" class="table" id="userTable">
             <tr>
                 <th>Nomer</th>
-                <th>Id_User</th>
                 <th>Username</th>
                 <th>Foto profil</th>
                 <th>Password</th>   
                 <th>Email</th>
                 <th>Level</th>
-                <th>Action</th> <!-- Menambah kolom aksi -->
+                <th>Action</th>
             </tr>
             <?php
             include '../koneksi.php';
@@ -48,21 +64,41 @@
             ?>
             <tr>
                 <td><?php echo $nomor++; ?></td>
-                <td><?php echo $data['id_user']; ?></td>
                 <td><?php echo $data['username']; ?></td>
                 <td><img src="../user/img/<?php echo $data["foto_profil"]; ?>" width="50" title="<?php echo $data['foto_profil']; ?>"></td>
                 <td><?php echo $data['password']; ?></td>
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['level']; ?></td>
-                <td><a href="adminuserhapus.php?id=<?php echo $data['id_user']; ?>" class="btn-hapus">Hapus</a> <!-- Tombol hapus --></td>
+                <td><a href="adminuserhapus.php?id=<?php echo $data['id_user']; ?>" class="btn-hapus">Hapus</a></td>
             <?php } ?>
         </table>
         <br>
         <br>
-    <a href="../index.php" class="btn">Log Out</a>
     </section>
     
+    <script>
+        document.getElementById("searchInput").addEventListener("input", function() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = this.value.toUpperCase();
+            table = document.getElementById("userTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // index 1 karena Username
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(input) > -1) {
+                        tr[i].style.display = "";
+                        // Menyorot huruf pencarian
+                        var regex = new RegExp('(' + input + ')', 'ig');
+                        td.innerHTML = txtValue.replace(regex, "<span class='highlight'>$1</span>");
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        });
+    </script>
 
-    <script src="main.js"></script>
+<script src="main.js"></script>
 </body>
 </html>
