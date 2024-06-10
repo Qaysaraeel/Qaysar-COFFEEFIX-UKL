@@ -40,7 +40,6 @@
     <section class="user">
         <h1 class="heading">Data Produk</h1>
         <br>
-        <a href="../index.php" class="btn">Log Out</a>
         <a href="adminproduktambah.php" class="btn">Tambah Produk</a>
         <br><br>
         <input type="text" id="searchInput" placeholder="Cari berdasarkan nama produk">
@@ -69,13 +68,12 @@
                 <td><?php echo $data['harga_produk']; ?></td>
                 <td><?php echo $data['deskripsi']; ?></td>
                 <td><img src="img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>"></td>
-                <td><a href="adminprodukhapus.php?id=<?php echo $data['id_produk']; ?>" class="btn-hapus">Hapus</a></td>
-                <td><a href="adminprodukuptade.php?id=<?php echo $data['id_produk']; ?>" class="btn-update">Update</a></td>
+                <td><a href="adminprodukhapus.php?id=<?php echo $data['id_produk']; ?>" class="btn">Hapus</a></td>
+                <td><a href="adminprodukuptade.php?id=<?php echo $data['id_produk']; ?>" class="btn">Update</a></td>
             </tr>
             <?php } ?>
         </table>
         <br><br>
-        <a href="../index.php" class="btn">Log Out</a>
     </section>
     
     <script>
@@ -100,5 +98,6 @@
             }
         });
     </script>
+    <script src="main.js"></script>
 </body>
 </html>

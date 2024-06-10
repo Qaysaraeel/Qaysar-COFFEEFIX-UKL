@@ -21,11 +21,15 @@ if ($login) {
             $_SESSION['username'] = $username;
             $_SESSION['level'] = "user";
             header("Location: user/index.php");
+        } else if ($data['level'] == "barista") { // Add this condition for barista level
+            $_SESSION['username'] = $username;
+            $_SESSION['level'] = "barista";
+            header("Location: barista/index.php"); // Update the redirection path for barista
         } else {
-            header("Location: index.php");
+            header("Location: loginnya.php?pesan=gagal");
         }
     } else {
-        header("Location: index.php?pesan=gagal");
+        header("Location: loginnya.php?pesan=gagal");
     }
 } else {
     echo "Error: " . mysqli_error($mysqli);

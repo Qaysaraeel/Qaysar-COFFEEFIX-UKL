@@ -40,7 +40,7 @@
     <section class="user">
     <h1 class="heading">Data User COFFEE</h1>
     <br>
-        <a href="../index.php" class="btn">Log Out</a>
+        <a href="registeradmin.php" class="btn">Tambah admin</a>
         <br>
         <br>
         <input type="text" id="searchInput" placeholder="Cari berdasarkan nama user">
@@ -55,6 +55,8 @@
                 <th>Email</th>
                 <th>Level</th>
                 <th>Action</th>
+                <th>Action</th>
+                
             </tr>
             <?php
             include '../koneksi.php';
@@ -70,6 +72,7 @@
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['level']; ?></td>
                 <td><a href="adminuserhapus.php?id=<?php echo $data['id_user']; ?>" class="btn-hapus">Hapus</a></td>
+                <td><a href="adminuserupdate.php?id=<?php echo $data['id_user']; ?>" class="btn-hapus">uptade</a></td>
             <?php } ?>
         </table>
         <br>

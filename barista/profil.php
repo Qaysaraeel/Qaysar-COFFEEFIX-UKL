@@ -36,11 +36,8 @@ mysqli_close($mysqli);
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
-            <li><a href="adminuser.php">User</a></li>
-            <li><a href="adminproduk.php">Produk</a></li>
-            <li><a href="admintransaksi.php">Transaksi</a></li>
-            <li><a href="adminmassage.php">Kritik/Saran</a></li>
-            <li><a href="adminrating.php">Rating/Ulasan</a></li>
+            <li><a href="index.php">Pemesanan Masuk</a></li>
+            <li><a href="pemesananselesai.php">Pemesanan Selesai</a></li>
             <li><a href="profil.php">Profil</a></li>
         </ul>
     </header>
@@ -64,7 +61,7 @@ mysqli_close($mysqli);
                 </tr>
             </table>
             <br>
-            <a href="adminuseruptade.php?id=<?php echo $userData['id_user']; ?>" class="btn">Edit profil</a><br>
+            <a href="../admin/adminuseruptade.php?id=<?php echo $userData['id_user']; ?>" class="btn">Edit profil</a><br>
             <a href="../index.php" class="btn">Log Out</a>
         </div>
     </section>

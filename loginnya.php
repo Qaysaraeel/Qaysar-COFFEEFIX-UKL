@@ -6,6 +6,20 @@
     <title>Halaman Login Coffe</title>
     <link rel="icon" type="image/png" href="logotitle.png">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .btn{
+    padding: 10px 168px;
+    border-radius: 0.3rem;
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-weight: 500;
+    text-decoration:none;
+
+}
+.btn:hover{
+    background: #8a6f4d;
+}
+    </style>
 </head>
 <body>
     <div class="container">
@@ -15,7 +29,7 @@
             <input type="text" name="Username" placeholder="Username">
             <input type="password" name="Password" placeholder="Password">
             <a href="login.php?id=<?php echo $data['id_user']; ?>"><button class="button">Login</button></a><br><br>
-            <a href="index.css"><button class="button">Kembali</button></a>
+            <a href="index.php" class="btn">Kembali</a>
         </form>
         <div class="forgot">
             <p>Tidak memiliki akun? <a href="register.php">Register</a></p>

@@ -33,10 +33,7 @@ if(isset($_POST['submit'])){
     "INSERT INTO rating(rating, id_user, username,foto_profil, pesan) VALUES ('$rating', '$id_user', '$username','$foto_profil', '$pesan')");
 
     if ($result) {
-        echo "<script>
-        alert('Successfully Added');
-        document.location.href = '../user/index.php';
-    </script>";
+        header("Location: ../user/rating.php");
     } else {
         echo "Error: " . mysqli_error($mysqli);
     }

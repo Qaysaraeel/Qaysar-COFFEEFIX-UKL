@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Halaman data TRANSACTION</title>
+    <title>Halaman Barista - Pemesanan Masuk</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="style1.css">
+    <link rel="stylesheet" href="index.css">
     <style>
-        /* CSS untuk gaya pencarian dan filter */
         .filter-input {
             padding: 8px;
             margin-bottom: 10px;
@@ -20,11 +19,12 @@
             background-color: yellow;
             color: red;
         }
-        .input{
-            display: flex;
-            gap:20px;
+        .lurus{
+            display:flex;
+            gap:10px;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header>
@@ -33,50 +33,34 @@
         </a>
         <i class='bx bx-menu' id="menu-icon"></i>
         <ul class="navbar">
-            <li><a href="adminuser.php">User</a></li>
-            <li><a href="adminproduk.php">Produk</a></li>
-            <li><a href="admintransaksi.php">Transaksi</a></li>
-            <li><a href="adminmassage.php">Kritik/Saran</a></li>
-            <li><a href="adminrating.php">Rating/Ulasan</a></li>
+            <li><a href="index.php">Pemesanan Masuk</a></li>
+            <li><a href="pemesananselesai.php">Pemesanan Selesai</a></li>
             <li><a href="profil.php">Profil</a></li>
         </ul>
     </header>
+
     <section class="user">
-        <h1 class="heading">Data Transaksi</h1>
+        <h1 class="heading">Pesanan untuk Diproses</h1>
         <br><br>
-        <div class="input">
+        <div class="lurus">
             <input type="text" id="searchInput" class="filter-input" placeholder="Cari berdasarkan nama pengguna">
-            <input type="date" id="dateInput" class="filter-input" placeholder="Filter berdasarkan tanggal">
+        <input type="date" id="dateInput" class="filter-input" placeholder="Filter berdasarkan tanggal">
         </div>
         
+        <br>
+        <a href="../index.php" class="btn">Log Out</a><br><br>
         <?php
         include '../koneksi.php';
-        
-        // Fetch all transactions with JOIN to get username and nama_produk
+
         $query_mysql = mysqli_query($mysqli, "
             SELECT transaksi.*, user.username, products.nama_produk 
             FROM transaksi 
             JOIN user ON transaksi.id_user = user.id_user 
             JOIN products ON transaksi.id_produk = products.id_produk
+            WHERE transaksi.status != 'Pemesanan Selesai'
             ORDER BY transaksi.tanggal_transaksi DESC, transaksi.waktu_transaksi DESC
         ") or die(mysqli_error($mysqli));
-
-        // Calculate total pendapatan
-        $total_pendapatan_query = mysqli_query($mysqli, "SELECT SUM(total_transaksi) AS total_pendapatan FROM transaksi") or die(mysqli_error($mysqli));
-        $total_pendapatan_result = mysqli_fetch_assoc($total_pendapatan_query);
-        $total_pendapatan = $total_pendapatan_result['total_pendapatan'];
         ?>
-
-        <style>
-            h2 {
-                color: #fff;
-            }
-        </style>
-
-        <div class="total-pendapatan">
-            <h2>Total Pendapatan Coffee: Rp <span id="totalPendapatan"><?php echo number_format($total_pendapatan, 0, ',', '.'); ?></span></h2>
-        </div>
-        <br>
 
         <table border="1" class="table" id="transaksiTable">
             <tr>
@@ -84,31 +68,31 @@
                 <th>Username</th>
                 <th>Nama Produk</th>
                 <th>Jumlah</th>
-                <th>Total Transaksi</th>
-                <th>Metode Transaksi</th>
                 <th>Tanggal Transaksi</th>
                 <th>Waktu Transaksi</th>
-                <th>Rating</th>
-                <th>status</th>
                 <th>Action</th>
             </tr>
             <?php
             $total_rows = mysqli_num_rows($query_mysql);
-            $nomor = $total_rows; // Mulai nomor dari jumlah total baris
+            $nomor = $total_rows;
             while ($data = mysqli_fetch_array($query_mysql)) {
             ?>
             <tr>
-                <td><?php echo $nomor--; ?></td> <!-- Urutan nomor dibalik -->
+                <td><?php echo $nomor--; ?></td>
                 <td><?php echo $data['username']; ?></td>
                 <td><?php echo $data['nama_produk']; ?></td>
                 <td><?php echo $data['jumlah']; ?></td>
-                <td class="total_transaksi"><?php echo number_format($data['total_transaksi'], 0, ',', '.'); ?></td>
-                <td><?php echo $data['metode_transaksi']; ?></td>
                 <td><?php echo $data['tanggal_transaksi']; ?></td>
                 <td><?php echo $data['waktu_transaksi']; ?></td>
-                <td><?php echo $data['rating']; ?></td>
-                <td><?php echo $data['status']; ?></td>
-                <td><a href="admintransaksihapus.php?id=<?php echo $data['id_transaksi']; ?>" class="btn">Hapus</a></td>
+                <td>
+                    <?php if ($data['status'] == 'Konfirmasi') { ?>
+                        <button class="btn" onclick="updateStatus(<?php echo $data['id_transaksi']; ?>, 'accept')">Konfirmasi</button>
+                    <?php } elseif ($data['status'] == 'Pesanan di proses') { ?>
+                        <button class="btn-2" onclick="updateStatus(<?php echo $data['id_transaksi']; ?>, 'process')">Buat pesanan</button>
+                    <?php } elseif ($data['status'] == 'Pesanan sedang dibuat') { ?>
+                        <button class="btn-3" onclick="updateStatus(<?php echo $data['id_transaksi']; ?>, 'complete')">Selesai</button>
+                    <?php } ?>
+                </td>
             </tr>
             <?php } ?>
         </table>
@@ -116,28 +100,29 @@
     </section>
 
     <script>
-        function formatRupiah(amount) {
-            return new Intl.NumberFormat('id-ID', {
-                style: 'currency',
-                currency: 'IDR',
-                minimumFractionDigits: 0
-            }).format(amount).replace(/\D00(?=\D*$)/, '');
-        }
-
-        function updateTotalPendapatan() {
-            var table, tr, td, i, total = 0;
-            table = document.getElementById("transaksiTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 1; i < tr.length; i++) { // Mulai dari 1 untuk melewatkan header
-                if (tr[i].style.display !== "none") {
-                    td = tr[i].getElementsByClassName("total_transaksi")[0];
-                    if (td) {
-                        total += parseInt(td.innerText.replace(/[^\d]/g, ''));
-                    }
+        function updateStatus(id, action) {
+    $.ajax({
+        url: 'updatestatus.php',
+        type: 'POST',
+        data: { id: id, action: action },
+        success: function(response) {
+            if ($.trim(response) == 'success') {
+                if (action === 'complete') {
+                    // Jika berhasil memperbarui status ke "Pemesanan Selesai", alihkan ke halaman pemesananselesai.php
+                    window.location.href = 'index.php';
+                } else {
+                    location.reload();
                 }
+            } else {
+                alert('Gagal memperbarui status pesanan.');
             }
-            document.getElementById("totalPendapatan").innerText = formatRupiah(total);
+        },
+        error: function() {
+            alert('Terjadi kesalahan. Silakan coba lagi.');
         }
+    });
+}
+
 
         document.getElementById("searchInput").addEventListener("input", function() {
             var input, filter, table, tr, td, i, txtValue;
@@ -158,7 +143,6 @@
                     }
                 }
             }
-            updateTotalPendapatan();
         });
 
         document.getElementById("dateInput").addEventListener("change", function() {
@@ -167,7 +151,7 @@
             table = document.getElementById("transaksiTable");
             tr = table.getElementsByTagName("tr");
             for (i = 1; i < tr.length; i++) { // Start from 1 to skip the header row
-                td = tr[i].getElementsByTagName("td")[6]; // index 6 karena Tanggal Transaksi
+                td = tr[i].getElementsByTagName("td")[4]; // index 4 karena Tanggal Transaksi
                 if (td) {
                     txtValue = td.textContent || td.innerText;
                     if (txtValue === input || input === "") { // Menampilkan semua jika input kosong
@@ -177,10 +161,8 @@
                     }
                 }
             }
-            updateTotalPendapatan();
         });
     </script>
-
     <script src="main.js"></script>
 </body>
 </html>

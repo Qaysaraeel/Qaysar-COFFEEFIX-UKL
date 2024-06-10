@@ -40,7 +40,6 @@
     <section class="user">
         <h1 class="heading">Data Rating/Ulasan</h1>
         <br>
-        <a href="../index.php" class="btn">Log Out</a>
         <br><br>
         <input type="text" id="searchInput" placeholder="Cari berdasarkan nama pengguna">
         <br><br>
@@ -87,12 +86,11 @@
                 <td><?php echo $data['username']; ?></td>
                 <td><img src="../user/img/<?php echo $data["foto_profil"]; ?>" width="50" title="<?php echo $data['foto_profil']; ?>"></td>
                 <td><?php echo $data['pesan']; ?></td>
-                <td><a href="adminratinghapus.php?id=<?php echo $data['id_rating']; ?>" class="btn-hapus">Hapus</a></td>
+                <td><a href="adminratinghapus.php?id=<?php echo $data['id_rating']; ?>" class="btn">Hapus</a></td>
             </tr>
             <?php } ?>
         </table>
-        <br><br>
-        <a href="../index.php" class="btn">Log Out</a>
+        <br>
     </section>
     <script>
         document.getElementById("searchInput").addEventListener("input", function() {

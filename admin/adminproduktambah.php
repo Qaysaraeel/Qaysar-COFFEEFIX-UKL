@@ -6,6 +6,19 @@
     <title>Tambah Produk</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="styleuptade1.css">
+    <style>
+        .btn{
+        padding: 10px 168px;
+        border-radius: 0.3rem;
+        background: var(--main-color);
+        color: var(--bg-color);
+        font-weight: 500;
+        text-decoration: none;
+        }
+        .btn:hover{
+        background: #8a6f4d;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -26,7 +39,8 @@
                 <input type="text" id="harga_produk" name="harga_produk" placeholder="Harga produk" required><br>
                 <input type="file" id="gambar_produk" name="gambar_produk" accept=".jpg, .jpeg, .png" required><br><br>
                 <textarea name="deskripsi" id="" placeholder=" Deskripsi produk"></textarea><br><br>
-                <input type="submit" name="submit" class="button" value="Tambah Produk">
+                <input type="submit" name="submit" class="button" value="Tambah Produk"><br><br>
+                <a href="adminproduk.php" class="btn">kembali</a>
             </form>
 
             <?php

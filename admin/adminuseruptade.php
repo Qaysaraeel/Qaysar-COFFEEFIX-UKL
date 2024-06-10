@@ -42,7 +42,7 @@ if(isset($_POST['update'])) {
     if($result) {
         echo "<script>
         alert('Successfully Added');
-        document.location.href = '../index.php';
+        document.location.href = '../loginnya.php';
         </script>";
     } else {
         echo "Terjadi kesalahan: " . mysqli_error($mysqli);

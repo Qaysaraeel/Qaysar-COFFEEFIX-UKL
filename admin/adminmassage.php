@@ -19,6 +19,16 @@
             background-color: yellow;
             color:red;
         }
+        .btn{
+    padding: 5px 40px;
+    border-radius: 0.3rem;
+    background: var(--main-color);
+    color: var(--bg-color);
+    font-weight: 500;
+}
+.btn:hover{
+    background: #8a6f4d;
+}
     </style>
 </head>
 <body>
@@ -38,8 +48,6 @@
     </header>
     <section class="user">
     <h1 class="heading">Data kritiK/saran</h1>
-    <br>
-        <a href="../index.php" class="btn">Log Out</a>
         <br>
         <br>
         <input type="text" id="searchInput" placeholder="Cari berdasarkan nama pengguna">
@@ -71,7 +79,7 @@
                 <td><?php echo $data['username']; ?></td>
                 <td><?php echo $data['email']; ?></td>
                 <td><?php echo $data['pesan']; ?></td>
-                <td><a href="adminmassagehapus.php?id=<?php echo $data['id_pesan']; ?>" class="btn-hapus">Hapus</a></td>
+                <td><a href="adminmassagehapus.php?id=<?php echo $data['id_pesan']; ?>" class="btn">Hapus</a></td>
             </tr>
             <?php } ?>
         </table>
