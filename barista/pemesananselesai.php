@@ -19,9 +19,9 @@
             background-color: yellow;
             color: red;
         }
-        .lurus{
-            display:flex;
-            gap:10px;
+        .lurus {
+            display: flex;
+            gap: 10px;
         }
     </style>
 </head>
@@ -43,7 +43,7 @@
         <br><br>
         <div class="lurus">
             <input type="text" id="searchInput" class="filter-input" placeholder="Cari berdasarkan nama pengguna">
-        <input type="date" id="dateInput" class="filter-input" placeholder="Filter berdasarkan tanggal">
+            <input type="date" id="dateInput" class="filter-input" placeholder="Filter berdasarkan tanggal">
         </div>
         <br>
         <a href="../index.php" class="btn">Log Out</a><br><br>
@@ -60,7 +60,7 @@
         ") or die(mysqli_error($mysqli));
         ?>
 
-        <table border="1" class="table">
+        <table id="transaksiTable" border="1" class="table">
             <tr>
                 <th>Nomor</th>
                 <th>Username</th>
@@ -73,7 +73,7 @@
             $total_rows = mysqli_num_rows($query_mysql);
             $nomor = $total_rows;
             while ($data = mysqli_fetch_array($query_mysql)) {
-    ?>
+            ?>
             <tr>
                 <td><?php echo $nomor--; ?></td>
                 <td><?php echo $data['username']; ?></td>
@@ -82,13 +82,13 @@
                 <td><?php echo $data['tanggal_transaksi']; ?></td>
                 <td><?php echo $data['waktu_transaksi']; ?></td>
             </tr>
-    <?php } ?>
-    </table>
-    <br><br>
-</section>
+            <?php } ?>
+        </table>
+        <br><br>
+    </section>
 
-<script>
-     document.getElementById("searchInput").addEventListener("input", function() {
+    <script>
+        document.getElementById("searchInput").addEventListener("input", function() {
             var input, filter, table, tr, td, i, txtValue;
             input = this.value.toUpperCase();
             table = document.getElementById("transaksiTable");
@@ -128,5 +128,5 @@
         });
     </script>
     <script src="main.js"></script>
-    </body>
-    </html>
+</body>
+</html>

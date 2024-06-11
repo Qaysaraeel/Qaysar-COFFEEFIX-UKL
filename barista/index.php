@@ -44,7 +44,7 @@
         <br><br>
         <div class="lurus">
             <input type="text" id="searchInput" class="filter-input" placeholder="Cari berdasarkan nama pengguna">
-        <input type="date" id="dateInput" class="filter-input" placeholder="Filter berdasarkan tanggal">
+            <input type="date" id="dateInput" class="filter-input" placeholder="Filter berdasarkan tanggal">
         </div>
         
         <br>
