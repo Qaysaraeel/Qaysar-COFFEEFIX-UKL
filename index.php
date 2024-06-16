@@ -8,21 +8,79 @@
     <link rel="icon" type="image/png" href="logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
-    header{
-    background: #1b1b1b;
-    }
-    .navbar li:hover .dropdown {
-        display: block;
-    }
-    .dropdown {
-        display: none;
-        position: absolute;
-        background: #1b1b1b;
-    }
-    .dropdown li {
-        float: none;
-    }
-</style>
+        header {
+            background: #1b1b1b;
+        }
+        .navbar li:hover .dropdown {
+            display: block;
+        }
+        .dropdown {
+            display: none;
+            position: absolute;
+            background: #1b1b1b;
+        }
+        .dropdown li {
+            float: none;
+        }
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+        }
+        .popup h2 {
+            margin: 0 0 10px;
+        }
+        .popup p {
+            margin: 0 0 20px;
+        }
+        .popup a {
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            background: #bc9667;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .popup a:hover {
+            background: #8a6f4d;
+        }
+        .popup .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+        }
+        #btn{
+        padding: 10px 30px;
+        border-radius: 0.3rem;
+        background: var(--main-color);
+        color: var(--bg-color);
+        font-weight: 500;
+        }
+        #btn:hover{
+        background: #8a6f4d;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -47,20 +105,54 @@
             <li><a href="#contact">Hubungi kami</a></li><br>
         </ul>
     </li>
-    <li><a href="loginnya.php">Menu</a></li>
-    <li><a href="loginnya.php">Keranjang</a></li>
-    <li><a href="loginnya.php">Riwayat Pembelian</a></li>
-    <li><a href="loginnya.php">Peringkat Pembelian</a></li>
+    <li><a href="produk.php">Menu</a></li>
+    <li><a href="#" class="login-required">Keranjang</a></li>
+    <li><a href="#" class="login-required">Riwayat Pembelian</a></li>
+    <li><a href="peringkat.php">Peringkat Pembelian</a></li>
     <li><a href="loginnya.php">Login</a></li>
-</ul>
+    </ul>
 
     </header>
+
+    <div class="popup-overlay" id="popup-overlay">
+        <div class="popup">
+            <button class="close-btn" id="close-btn">&times;</button>
+            <h2>Login Diperlukan</h2>
+            <p>Anda perlu login untuk mengakses fitur ini.</p>
+            <a href="loginnya.php">Login Sekarang</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginRequiredLinks = document.querySelectorAll('.login-required');
+            const popupOverlay = document.getElementById('popup-overlay');
+            const closeBtn = document.getElementById('close-btn');
+
+            loginRequiredLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    popupOverlay.style.display = 'flex';
+                });
+            });
+
+            closeBtn.addEventListener('click', function() {
+                popupOverlay.style.display = 'none';
+            });
+
+            popupOverlay.addEventListener('click', function(event) {
+                if (event.target === popupOverlay) {
+                    popupOverlay.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
     <section class="home" id="home">
         <div class="home-text">
             <h1>Nikmati Kesempurnaan <br> di Setiap Tegukan</h1>
             <p>Temukan kenikmatan kopi sejati dengan setiap tegukan. Kami menghadirkan biji kopi pilihan yang diproses dengan penuh dedikasi untuk memberikan pengalaman rasa yang tiada duanya. Setiap cangkir kopi kami adalah cerminan dari kualitas, keahlian, dan cinta pada kopi.</p>
-            <a href="loginnya.php" class="btn">Beli Sekarang</a>
+            <a href="#" class="login-required" id="btn">Beli Sekarang</a>
         </div>
         <div class="home-img">
             <img src="user/img/main.png" alt="">
@@ -80,34 +172,76 @@
 
     <section class="products" id="products">
     <div class="heading">
-        <h2>menu populer</h2>
+        <h2>Rekomendasi untukmu</h2>
     </div><br>
     <div class="products-container" id="products-container">
-        <?php
-        include 'koneksi.php';
-        $query_mysql = mysqli_query($mysqli, "SELECT * FROM products") or die(mysqli_error($mysqli));
-        $counter = 0; // Initialize counter
-        while($data = mysqli_fetch_array($query_mysql)) { 
-            if ($counter >= 3) break; 
-            $counter++;
-        ?>
-        <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
+    <?php
+    include 'koneksi.php';
+    $query_mysql = "
+        SELECT p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk, 
+               AVG(t.rating) as avg_rating, COUNT(t.rating) as rating_count
+        FROM products p
+        LEFT JOIN transaksi t ON p.id_produk = t.id_produk
+        GROUP BY p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk
+    ";
+    $result = mysqli_query($mysqli, $query_mysql) or die(mysqli_error($mysqli));
+
+    // Fetch all results into an array
+    $products = [];
+    while ($data = mysqli_fetch_array($result)) {
+        $products[] = $data;
+    }
+
+    // Select 3 random keys from the products array
+    $random_keys = array_rand($products, 3);
+
+    foreach ($random_keys as $key) {
+        $data = $products[$key];
+    ?>
+    <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
+        <a href="loginnya.php">
             <img src="admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
-            <h3><?php echo $data['nama_produk']; ?></h3>
-            <p><?php echo $data['kategori']; ?></p>
-            <h4>Rp: <?php echo $data['harga_produk']; ?></h4><br>
-            <div class="content">
-                <h3><a href="loginnya.php" class="btn">Beli</a></h3>
-                <h3><a href="loginnya.php" class="btn">Keranjang</a></h3>  
-            </div>
+            <h3><?php echo htmlspecialchars($data['nama_produk']); ?></h3>
+        </a>
+        <p><?php echo htmlspecialchars($data['kategori']); ?></p>
+        <h4>Rp: <?php echo number_format($data['harga_produk'], 0, ',', '.'); ?></h4>
+        <?php 
+        if (!is_null($data['avg_rating'])) { 
+            $rating = $data['avg_rating'];
+            $rating_count = $data['rating_count'];
+            $full_stars = floor($rating);
+            $half_star = ceil($rating - $full_stars);
+            $empty_stars = 5 - $full_stars - $half_star;
+            echo "<p> ";
+            // Full stars
+            for ($i = 0; $i < $full_stars; $i++) {
+                echo "<i class='bx bxs-star'></i>";
+            }
+            // Half star
+            if ($half_star) {
+                echo "<i class='bx bxs-star-half'></i>";
+            }
+            // Empty stars
+            for ($i = 0; $i < $empty_stars; $i++) {
+                echo "<i class='bx bx-star'></i>";
+            }
+            echo " (" . number_format($rating, 1) . "/5) " . "Dari ". $rating_count . " rating" . "</p>" ;
+        } else {
+            echo "<p>Belum ada rating</p>";
+        }
+        ?>
+        <br>
+        <div class="content">
+            <h3><a href="#" class="login-required" id="btn">Masukan Keranjang</a></h3>  
         </div>
-        <?php } ?>
+    </div>
+    <?php } ?>
     </div>
     <br><br>
-    <a href="loginnya.php" class="btn">Lihat Semua Menu</a>
-    </section>
+    <a href="produk.php" class="btn">Lihat Semua Menu</a>
+</section>
 
-    <section class="customers" id="customers">
+<section class="customers" id="customers">
     <div class="heading">
         <h2>Ulasan Customer</h2>
     </div>
@@ -120,10 +254,18 @@
             JOIN user ON rating.id_user = user.id_user
         ";
         $query_mysql = mysqli_query($mysqli, $query) or die(mysqli_error($mysqli));
-        $counter = 0; // Inisialisasi counter
-        while($data = mysqli_fetch_array($query_mysql)) { 
-            if ($counter >= 4) break; // Batasan 3 ulasan
-            $counter++;
+
+        // Fetch all results into an array
+        $reviews = [];
+        while ($data = mysqli_fetch_array($query_mysql)) {
+            $reviews[] = $data;
+        }
+
+        // Select 4 random keys from the reviews array
+        $random_keys = array_rand($reviews, 4);
+
+        foreach ($random_keys as $key) {
+            $data = $reviews[$key];
         ?>
         <div class="box">
             <div class="stars">
@@ -157,8 +299,8 @@
         <?php } ?>
     </div>
     <br><br>
-    <a href="loginnya.php" class="btn">Lihat semua ulasan</a>
-    <a href="loginnya.php" class="btn">Berikan ulasan!</a>
+    <a href="rating.php" class="btn">Lihat semua ulasan</a>
+    <a href="#" class="login-required" id="btn">Berikan ulasan!</a>
 </section>
 
 
@@ -219,7 +361,7 @@
                         <span>Ketik disini pesanmu...</span>
                     </div>
                     <div class="inputBox">
-                        <a href="loginnya.php" class="btn">Kirim</a>
+                        <a href="#" class="login-required" id="btn">Kirim</a>
                     </div>
 
                 </form>

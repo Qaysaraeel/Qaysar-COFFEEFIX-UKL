@@ -47,7 +47,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peringkat Pengguna</title>
     <link rel="icon" type="image/png" href="../logotitle.png">
-    <link rel="stylesheet" href="peringkat1.css">
+    <link rel="stylesheet" href="peringkat.css">
 </head>
 <body>
 <header>
@@ -75,9 +75,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     <br><br><br>
 
     <section class="peringkat">
-        <div class="container">
-            <br><br><br>
-            <h1>Peringkat Pengguna Berdasarkan Total pembelian</h1>
+        <div class="container"><br>
+            <h1>Peringkat Pengguna Berdasarkan Total pembelian</h1><br>
             <div class="ranking-container">
                 <table>
                     <thead>

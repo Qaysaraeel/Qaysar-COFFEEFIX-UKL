@@ -24,7 +24,6 @@
 <body>
     <div class="container">
         <h1 class="title">Log-in</h1><br>
-        <p>Login Untuk Mengakses Fitur Kami</p>
         <form class="form" action="login.php" method="post">
             <input type="text" name="Username" placeholder="Username">
             <input type="password" name="Password" placeholder="Password">
