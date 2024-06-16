@@ -15,13 +15,19 @@
         header {
             background-color: #1b1b1b;
         }
-        .love{
-            display: inline-flex;
+        .favorite-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 22px;
         }
-        .bxs-heart {
-            color: black;
-            font-size:40px;
-            margin:7px;
+
+        .favorite-btn .bx {
+            color: #ccc; /* Default color */
+        }
+
+        .favorite-btn .bx.bxs-heart {
+            color: red; /* Color when favorited */
         }
     </style>
 </head>

@@ -1,23 +1,23 @@
 <?php
 session_start();
 if (!isset($_SESSION['username'])) {
-    header("Location: login.php");
-    exit();
+    $loggedIn = false;
+} else {
+    $loggedIn = true;
+    include 'koneksi.php';
+    $username = $_SESSION['username'];
+    
+    $query = "SELECT * FROM user WHERE username = '$username'";
+    $result = mysqli_query($mysqli, $query);
+    
+    if (!$result) {
+        die("Query Error: " . mysqli_error($mysqli));
+    }
+    
+    $userData = mysqli_fetch_assoc($result);
+    
+    mysqli_close($mysqli);
 }
-
-include 'koneksi.php';
-$username = $_SESSION['username'];
-
-$query = "SELECT * FROM user WHERE username = '$username'";
-$result = mysqli_query($mysqli, $query);
-
-if (!$result) {
-    die("Query Error: " . mysqli_error($mysqli));
-}
-
-$userData = mysqli_fetch_assoc($result);
-
-mysqli_close($mysqli);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,23 +78,23 @@ mysqli_close($mysqli);
             cursor: pointer;
         }
         #btn{
-        padding: 10px 30px;
-        border-radius: 0.3rem;
-        background: var(--main-color);
-        color: var(--bg-color);
-        font-weight: 500;
+            padding: 10px 30px;
+            border-radius: 0.3rem;
+            background: var(--main-color);
+            color: var(--bg-color);
+            font-weight: 500;
         }
         #btn:hover{
-        background: #8a6f4d;
+            background: #8a6f4d;
         }
         h1{
-        text-align:center;
-        text-transform:uppercase;
+            text-align:center;
+            text-transform:uppercase;
         }
     </style>
 </head>
 <body>
-<header>
+    <header>
         <a href="#" class="logo">
             <img src="img/logo.png" alt="">
         </a>
@@ -108,20 +108,20 @@ mysqli_close($mysqli);
         </div>
         <ul class="navbar">
             <li><a href="index.php">Beranda</a></li>
-            <li><a href="produk.php">menu</a></li>
-            <li><a href="keranjang.php">Keranjang</a></li>
-            <li><a href="riwayatbeli.php">Riwayat Pembelian</a></li>
+            <li><a href="produk.php">Menu</a></li>
+            <li><a href="#" class="login-required">Keranjang</a></li>
+            <li><a href="#" class="login-required">Riwayat Pembelian</a></li>
             <li><a href="peringkat.php">Peringkat Pembelian</a></li>
-            <li><a href="profil.php">Profil</a></li>
+            <li><a href="loginnya.php">Login</a></li>
         </ul>
     </header>
     <br><br><br><br>
     <section class="customers" id="customers">
         <div class="heading">
-            <h1>ulasan customer</h1>
+            <h1>Ulasan Customer</h1>
         </div><br><br><br>
         <a href="index.php" class="btn">Kembali</a>
-        <a href="#" class="login-required" id="btn">Berikan ulasan!</a>
+        <a href="#" class="login-required" id="btn">Berikan Ulasan!</a>
         <div class="customers-container">
             <?php
             include 'koneksi.php';
@@ -165,7 +165,6 @@ mysqli_close($mysqli);
             <?php } ?>
         </div>
         <br><br>
-        
     </section>
     <div class="popup-overlay" id="popup-overlay">
         <div class="popup">
@@ -178,14 +177,17 @@ mysqli_close($mysqli);
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const loggedIn = <?php echo $loggedIn ? 'true' : 'false'; ?>;
             const loginRequiredLinks = document.querySelectorAll('.login-required');
             const popupOverlay = document.getElementById('popup-overlay');
             const closeBtn = document.getElementById('close-btn');
 
             loginRequiredLinks.forEach(link => {
                 link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    popupOverlay.style.display = 'flex';
+                    if (!loggedIn) {
+                        event.preventDefault();
+                        popupOverlay.style.display = 'flex';
+                    }
                 });
             });
 

@@ -28,6 +28,12 @@ mysqli_close($mysqli);
     <link rel="stylesheet" href="rating.css">
     <link rel="icon" type="image/png" href="../logotitle.png">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+        h1{
+            text-align:center;
+            text-transform:uppercase;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -51,10 +57,13 @@ mysqli_close($mysqli);
             <li><a href="profil.php">Profil</a></li>
         </ul>
     </header>
+    <br><br><br><br>
     <section class="customers" id="customers">
         <div class="heading">
-            <h2>ulasan customer</h2>
+            <h1>ulasan customer</h1><br><br>
         </div>
+        <a href="index.php" class="btn">Kembali</a>
+        <a href="../admin/adminratingtambah.php?id_user=<?php echo $userData['id_user']; ?>" class="btn">Berikan ulasan!</a>
         <div class="customers-container">
             <?php
             include '../koneksi.php';
@@ -98,8 +107,7 @@ mysqli_close($mysqli);
             <?php } ?>
         </div>
         <br><br>
-        <a href="index.php" class="btn">Kembali</a>
-        <a href="../admin/adminratingtambah.php?id_user=<?php echo $userData['id_user']; ?>" class="btn">Berikan ulasan!</a>
+        
     </section>
 </body>
 </html>

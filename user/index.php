@@ -101,7 +101,7 @@ mysqli_close($mysqli);
     <section class="products" id="products">
     <div class="heading">
         <h2>Rekomendasi untukmu</h2>
-    </div><br>
+    </div>
     <div class="products-container" id="products-container">
     <?php
     include '../koneksi.php';
@@ -166,8 +166,69 @@ mysqli_close($mysqli);
     <?php } ?>
     </div>
     <br><br>
+
+    <div class="heading">
+        <h2>Menu Terpopuler</h2>
+    </div>
+    <div class="products-container" id="popular-products-container">
+    <?php
+    include '../koneksi.php';
+    $query_mysql = "
+        SELECT p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk, 
+               AVG(t.rating) as avg_rating, COUNT(t.rating) as rating_count
+        FROM products p
+        LEFT JOIN transaksi t ON p.id_produk = t.id_produk
+        GROUP BY p.id_produk, p.nama_produk, p.kategori, p.harga_produk, p.gambar_produk
+        ORDER BY AVG(t.rating) DESC, COUNT(t.rating) DESC
+        LIMIT 3
+    ";
+    $result = mysqli_query($mysqli, $query_mysql) or die(mysqli_error($mysqli));
+
+    while ($data = mysqli_fetch_array($result)) {
+    ?>
+    <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
+        <a href="detailproduk.php?id=<?php echo $data['id_produk']; ?>">
+            <img src="../admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
+            <h3><?php echo htmlspecialchars($data['nama_produk']); ?></h3>
+        </a>
+        <p><?php echo htmlspecialchars($data['kategori']); ?></p>
+        <h4>Rp: <?php echo number_format($data['harga_produk'], 0, ',', '.'); ?></h4>
+        <?php 
+        if (!is_null($data['avg_rating'])) { 
+            $rating = $data['avg_rating'];
+            $rating_count = $data['rating_count'];
+            $full_stars = floor($rating);
+            $half_star = ceil($rating - $full_stars);
+            $empty_stars = 5 - $full_stars - $half_star;
+            echo "<p> ";
+            // Full stars
+            for ($i = 0; $i < $full_stars; $i++) {
+                echo "<i class='bx bxs-star'></i>";
+            }
+            // Half star
+            if ($half_star) {
+                echo "<i class='bx bxs-star-half'></i>";
+            }
+            // Empty stars
+            for ($i = 0; $i < $empty_stars; $i++) {
+                echo "<i class='bx bx-star'></i>";
+            }
+            echo " (" . number_format($rating, 1) . "/5) " . "Dari ". $rating_count . " rating" . "</p>" ;
+        } else {
+            echo "<p>Belum ada rating</p>";
+        }
+        ?>
+        <br>
+        <div class="content">
+            <h3><a href="keranjang.php?id=<?php echo $data['id_produk']; ?>" class="btn">Masukan Keranjang</a></h3>  
+        </div>
+    </div>
+    <?php } ?>
+    </div>
+    <br><br>
     <a href="produk.php" class="btn">Lihat Semua Menu</a>
 </section>
+
 
 
 <section class="customers" id="customers">

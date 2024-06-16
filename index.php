@@ -199,7 +199,7 @@
         $data = $products[$key];
     ?>
     <div class="box" data-category="<?php echo strtolower($data['kategori']); ?>">
-        <a href="loginnya.php">
+        <a href="detailproduk.php?id=<?php echo $data['id_produk']; ?>">
             <img src="admin/img/<?php echo $data["gambar_produk"]; ?>" width="200" title="<?php echo $data['gambar_produk']; ?>">
             <h3><?php echo htmlspecialchars($data['nama_produk']); ?></h3>
         </a>
@@ -299,7 +299,7 @@
         <?php } ?>
     </div>
     <br><br>
-    <a href="rating.php" class="btn">Lihat semua ulasan</a>
+    <a href="ulasan.php" class="btn">Lihat semua ulasan</a>
     <a href="#" class="login-required" id="btn">Berikan ulasan!</a>
 </section>
 
